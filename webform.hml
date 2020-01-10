@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<!DOCTYPE html>
+<html>
+<form>
+<h1> Training/Demo platform requests</h1>
+<small> This form is dedicated for requesting training clusters to the Field Engineering team. Training cluster should only be requested for few days and are NOT suited for PoC or other long running usages.
+
+For those, please contact the Field Enginerring team directly: field-engineering-nonofficial@dataiku.com</small>
+<p>
+Your Email Address:   
+    
+<input type="email" name="RequestersEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" />
+  </p>
+   <p>
+<input type="checkbox" name="ImplementationManager" value="yes" checked=’checked’/> I am the Implementation Manager
+  
+  <p>
+  Implementation Manager Email Address:  
+  
+
+
+  
+<input type="email" name="IMEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" />
+<br>
+  <small> The email address of the implementation manager responsible for this training.</small>
+  </p>
+   <p>
+   Trainer Email Address:
+<input type="email" name="TrainerEmail"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
+<br>
+  <small> The email address of the trainer that will teach the customer.</small>
+  </p>
+   <p>
+   Customer Email Address
+<input type="email" name="CustomerEmail"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" />
+<br>
+  <small> This is the email address used for the license and is supposed to be someone from the customer's organization. This must be the email of the user registered into the license database.</small>
+  </p>
+   <p>
+  Customer Organization Name
+<input type="text" name="CustomerOrgName"  pattern="([A-Za-z0-9\-]+)" maxlength="15" required="required" />
+<br>
+  <small> Organization name or group identifier to whom the training is intended for. Alphanumeric and "-" only. No more than 15 chars.</small>
+  </p>
+   <p>
+What kind of platform is it?
+<br>
+<input type="radio" name="platform" value="Training" checked=’checked’ required="required">Training  <br/>
+<input type="radio" name="platform" value="PartnerTraining">Partner Training  <br/>
+<input type="radio" name="platform" value="Demo">Demo  <br/>
+</p>
+<p>
+Partner Email Address:
+<input type="email" name="PartnerEmail"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
+  </p>
+   <p>
+Your office location:
+    <br>
+<select required="required" name="office">
+ <option value="USA"> NY / USA</option>
+ <option value="London"> London</option>
+ <option value="Paris/Eu"> Paris / Europe</option>
+ <option value="Singapore"> Singapore</option>
+ <option value="Sydney/Aus"> Sydney / Aus</option>
+ <option value="Other"> Other</option>
+ </select>
+    </p>
+    <p>
+ Where will the training be held?
+    <br>
+<select required="required"  name="trainingLocation">
+ <option value="Paris"> Paris</option>
+ <option value="London"> London</option>
+ <option value="NorthAmericaEast"> North America (East coast)</option>
+ <option value="NorthAmericaWest"> North America West</option>
+  <option value="Frankfurt"> Frankfurt</option>
+   <option value="Dublin"> Dublin</option>
+ <option value="Sydney"> Sydney</option>
+ <option value="Singapore"> Singapore</option>
+ </select>
+    </p>
+    <p>
+Is it an admin training?
+
+  <small> If you are not sure, the answer is probably no.</small><br>
+
+<input type="radio" name="AdminTraining" value="Yes">Yes  <br>
+<input type="radio" name="AdminTraining" value="No" required="required"  >No 
+
+    </p>
+    <p>
+    Number of studios:
+<input type="text" name="NoStudios" pattern="\d" min="1" max="99" required="required" ><br>
+<small> Number of DSS Design you 'd like (NUMERICAL values ONLY ) . This is different from the number of users. If you request automation and API Nodes too, you will get one per design node. If this an admin training, number of studios is the number of trainees.</small>
+  </p>
+   <p>
+ Number of users per studio
+<select required="required"  name="UsersPerStudio">
+ <option value="1"> 1</option>
+ <option value="2"> 2</option>
+ <option value="3"> 3</option>
+ <option value="4"> 4</option>
+  <option value="5"> 5</option>
+   <option value="6"> 6</option>
+ <option value="7"> 7</option>
+ <option value="8"> 8</option>
+  <option value="9"> 9</option>
+   <option value="10"> 10</option>
+ </select><br>
+ <small> For admin trainings, this number will be forced to 1. For other trainings, just select this number according to your requirements for collaboration : a smaller number will NOT yield additional compute power per user.</small>
+    </p>
+    <p>
+    When do you need the instance ready?
+<input type="date" name="StartDate"  required="required" >
+<br>
+ <small> Delivery date - MUST be at least 7 days after the request creation date . This is NOT the first day of the training, but the day on which you want the instances to be available to test them. Take a reasonable margin while being aware of the cost.</small>
+    </p>
+    <p>
+    Until when do you need the instances?
+<input type="date" name="EndDate" required="required" >
+<br>
+ <small> This is the last day on which the instances will be available. They will be entirely deleted the day AFTER.</small>
+    </p>
+    <p>
+Do you need Automation and API nodes?
+<br>
+<input type="radio" name="Automation/API" value="Yes">Yes  <br/>
+<input type="radio" name="Automation/API" value="No" checked="checked" required="required" >No <br/>
+    </p>
+    <p>
+Do you need SSH access?
+<br>
+<input type="radio" name="SSH" value="Yes" checked="checked"> Yes <br>
+<input type="radio" name="SSH" value="No" required="required" > No <br/>
+    </p>
+    <p>
+Do you need Hadoop? <small> Having Hadoop enabled implies having HDFS, Hive and Spark.</small>
+<br>
+<input type="radio" name="Hadoop" value="Yes" > Yes  <br/>
+<input type="radio" name="Hadoop" value="No" checked="checked" required="required" > No <br/>
+    </p>
+    <p>
+Do you need Kubernetes (experimental)? <small> NOT IMPLEMENTED YET - field is available here for when the feature is released </small>
+<br>
+<input type="radio" name="Kubernetes" value="Yes" required="required" > Yes  <br/>
+<input type="radio" name="Kubernetes" value="No" checked="checked">   No <br/>
+    </p>
+        <p>
+        <p>
+<input type="checkbox" name="SendCopy" value="yes"/> Send me a copy of my responses
+
+
+
+
+
+</form>
+ 
