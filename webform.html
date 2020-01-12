@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<script
+  src="http://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous">
+</script>
+
+<style>
+h1 {
+  color: black;
+  font-family: "Source Sans Pro",sans-serif;
+   padding:0;
+    margin:0;
+    font-size: xxx-large
+}
+.subtext {
+	color: grey;
+    font-family: "Source Sans Pro",sans-serif;
+    font-size: medium;
+    padding:0;
+    margin:-5;
+    
+    }
+.question {
+	color: black;
+    font-family:"Source Sans Pro",sans-serif;
+    font-size: x-large;
+    padding:0;
+    margin:0;
+    
+    }
+/* Customize the label (the container) */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #f1f1f1;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #28B1AB;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+
+}
+
+/* Customize the label (the container) */
+.radioButton {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.radioButton input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom radio button */
+.ticked {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.radioButton:hover input ~ .ticked {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radioButton input:checked ~ .ticked {
+  background-color: #28B1AB;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.ticked:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radioButton input:checked ~ .ticked:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radioButton .ticked:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid grey;
+  border-radius: 6px;
+  font: inherit;
+  font-size: .9em
+}
+input[type=text]:focus {
+  box-shadow: 0 0 8px #28B1AB;
+}
+input[type=email] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid grey;
+  border-radius: 6px;
+  font: inherit;
+  font-size: .9em
+}
+input[type=email]:focus {
+  box-shadow: 0 0 8px #28B1AB;
+
+}
+select {
+  width: 50%;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 12px;
+  background-color: #f1f1f1;
+  font: inherit;
+  font-size: .9em
+  
+}
+input[type=date] {
+  width: 40%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid grey;
+  border-radius: 12px;
+  font: inherit;'=
+  font-size: .9em
+  
+}
+input[type=date]:focus {
+  box-shadow: 0 0 8px #28B1AB;
+  
+}
+select:invalid { color: gray; }
+
+</style>
+
+<form id= requestForm>
+<head>
+<h1> Training/Demo platform requests</h1>
+<span class="subtext"> <small> This form is dedicated for requesting training clusters to the Field Engineering team. Training cluster should only be requested for few days and are NOT suited for PoC or other long running usages. For those, please contact the Field Enginerring team directly: field-engineering-nonofficial@dataiku.com</small></span>
+</head>
+<body>
+<span class="question">
+<p>
+Your Email Address*
+</span>
+<input type="email" name="RequestersEmail" placeholder="myemail@dataiku.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required">
+</p>
+<p>
+<label class="container">
+<input type="checkbox" name="ImplementationManager" value="yes" checked=’checked’/>
+<span class="question">I am the Implementation Manager</span>
+<span class="checkmark"></span>
+</label>
+<span class="question">
+<p>Implementation Manager Email Address*</span>
+<input type="email" name="IMEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" placeholder="IMemail@dataiku.com" />
+<br><span class="subtext"><small>The email address of the implementation manager responsible for this training.</small></span>
+</p>
+<span class="question"><p>
+Trainer Email Address</span>
+<input type="email" name="TrainerEmail" placeholder="traineremail@dataiku.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
+<br><span class="subtext"> <small> The email address of the trainer that will teach the customer.</small></span>
+</p>
+<span class="question"><p>
+Customer Email Address*</span>
+<input type="email" name="CustomerEmail"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" placeholder="custemail@dataiku.com"/>
+<br><span class="subtext"> <small> This is the email address used for the license and is supposed to be someone from the customer's organization. This must be the email of the user registered into the license database.</small></span>
+</p>
+<span class="question"><p>
+Customer Organization Name*</span>
+<input type="text" name="CustomerOrgName"  pattern="([A-Za-z0-9\-]+)" maxlength="15" required="required" placeholder="Org name" />
+<br><span class="subtext"> <small> Organization name or group identifier to whom the training is intended for. Alphanumeric and "-" only. No more than 15 chars.</small></span>
+</p>
+<span class="question"><p>
+What kind of platform is it?*</span>
+<br>
+
+<label class="radioButton">Training
+<input type="radio" name="platform" value="Training" required="required" >   
+<span class="ticked"></span>
+</label> 
+<label class="radioButton">Partner Training
+<input type="radio" name="platform" value="PartnerTraining">   
+<span class="ticked"></span>
+</label>
+<label class="radioButton">Demo
+<input type="radio" name="platform" value="Demo">   
+<span class="ticked"></span>
+</label> 
+
+
+<span class="question"><p>
+Partner Email Address:</span>
+<input type="email" name="PartnerEmail"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/ placeholder="partneremail@dataiku.com">
+</p>
+<span class="question"><p>
+Your office location*</span><br>
+<select required="required" name="office">
+<option value="" disabled selected hidden>- Please select -</option>
+ <option value="USA"> NY / USA</option>
+ <option value="London"> London</option>
+ <option value="Paris/Eu"> Paris / Europe</option>
+ <option value="Singapore"> Singapore</option>
+ <option value="Sydney/Aus"> Sydney / Aus</option>
+ <option value="Other"> Other</option>
+ </select>
+</p>
+<span class="question"><p>
+Where will the training be held?*</span><br>
+<select required="required"  name="trainingLocation">
+<option value="" disabled selected hidden>- Please select -</option>
+<option value="Paris"> Paris</option> 
+<option value="London"> London</option>
+<option value="NorthAmericaEast"> North America (East coast)</option>
+<option value="NorthAmericaWest"> North America West</option>
+<option value="Frankfurt"> Frankfurt</option>
+<option value="Dublin"> Dublin</option>
+<option value="Sydney"> Sydney</option>
+<option value="Singapore"> Singapore</option>
+</select>
+</p>    
+<span class="question"><p>
+Is it an admin training?*</span>
+<span class="subtext"> <small> If you are not sure, the answer is probably no.</small></span>
+<label class="radioButton">Yes
+<input type="radio" name="AdminTraining" value="Yes" required="required" >   
+<span class="ticked"></span>
+</label> 
+<label class="radioButton">No
+<input type="radio" name="AdminTraining" value="No">   
+<span class="ticked"></span>
+</label> 
+</p>
+<span class="question"><p>
+Number of studios* <span class="subtext"><small> Number of DSS Design you 'd like (NUMERICAL values ONLY ) . This is different from the number of users. If you request automation and API Nodes too, you will get one per design node. If this an admin training, number of studios is the number of trainees.</small></span></span>
+<input type="text" name="NoStudios" pattern="\d" min="1" max="99" required="required" ></span><br>
+</p>
+<span class="question"><p>
+Number of users per studio*</span>
+<select required="required"  name="UsersPerStudio">
+<option value="" disabled selected hidden>- Please select -</option>
+<option value="1"> 1</option>
+<option value="2"> 2</option>
+<option value="3"> 3</option>
+<option value="4"> 4</option>
+<option value="5"> 5</option>
+<option value="6"> 6</option>
+<option value="7"> 7</option>
+<option value="8"> 8</option>
+<option value="9"> 9</option>
+<option value="10"> 10</option>
+</select><br><span class="subtext"><small> For admin trainings, this number will be forced to 1. For other trainings, just select this number according to your requirements for collaboration : a smaller number will NOT yield additional compute power per user.</small></span>
+</p>
+<span class="question"><p>
+When do you need the instance ready?* </span><input type="date" name="StartDate"  required="required"  ><br/>
+<span class="subtext"> <small> Delivery date - MUST be at least 7 days after the request creation date . This is NOT the first day of the training, but the day on which you want the instances to be available to test them. Take a reasonable margin while being aware of the cost.</small></span>
+</p>
+<span class="question"><p>
+Until when do you need the instances?*</span>
+<input type="date" name="EndDate" required="required" ><br/>
+<span class="subtext"> <small> This is the last day on which the instances will be available. They will be entirely deleted the day AFTER.</small></span>
+</p>
+<span class="question"><p>
+Do you need Automation and API nodes?*</span>
+<br/>
+<label class="radioButton">Yes
+<input type="radio" name="Automation/API" value="Yes"> <span class="ticked"></span></label> 
+<label class="radioButton">No
+<input type="radio" name="Automation/API" value="No" checked="checked" required="required" > 
+<span class="ticked"></span> <br/>
+</label>
+</p>
+<span class="question"><p>
+Do you need SSH access?*</span>
+<br/>
+<label class="radioButton">Yes
+<input type="radio" name="SSH" value="Yes" checked="checked"> 
+<span class="ticked"></span>
+</label> 
+<label class="radioButton">No
+<input type="radio" name="SSH" value="No" required="required" > 
+<span class="ticked"></span>
+</label>
+</p>
+<span class="question"><p>
+Do you need Hadoop?* </span><span class="subtext"><small>Having Hadoop enabled implies having HDFS, Hive and Spark.</small></span><br>
+<label class="radioButton">Yes
+<input type="radio" name="Hadoop" value="Yes" >  
+<span class="ticked"></span>
+</label> 
+<label class="radioButton">No
+<input type="radio" name="Hadoop" value="No" checked="checked" required="required" > 
+<span class="ticked"></span>
+</label> 
+</p>
+<span class="question"><p>
+Do you need Kubernetes (experimental)?*</span><span class="subtext"><small> NOT IMPLEMENTED YET - field is available here for when the feature is released </small></span>
+<br/>
+<label class="radioButton">Yes
+<input type="radio" name="Kubernetes" value="Yes" required="required" >   
+<span class="ticked"></span>
+</label> 
+<label class="radioButton">No
+<input type="radio" name="Kubernetes" value="No" checked="checked">   
+<span class="ticked"></span>
+</label> 
+</p>
+<p>  
+<br/>
+<label class="container">
+<input type="checkbox" name="SendCopy" value="yes"/>
+<span class="question">Send me a copy of my responses</span>
+<span class="checkmark"></span>
+</label>
+</body>
+</form>
+ 
