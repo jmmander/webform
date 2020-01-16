@@ -1,28 +1,410 @@
-<form id=requestForm>
+<!DOCTYPE html>
+<html>
+<script src=https://cdn.jsdelivr.net/jquery/1.12.4/jquery.min.js></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<style>
+h1 {
+  color: black;
+  font-family: "Source Sans Pro", sans-serif;
+  padding: 0;
+  margin: 0;
+  font-size: xxx-large;
+}
 
-  <head>
+.subtext {
+  color: grey;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: medium;
+  padding: 0;
+  margin: -5;
+
+}
+
+.question {
+  color: black;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: x-large;
+  padding: 0;
+  margin: 0;
+
+}
+
+.checkquest {
+  color: black;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: large;
+  padding: 0;
+  margin: 0;
+
+}
+
+.error {
+  color: red;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: medium;
+  padding: 0;
+  margin: 0;
+
+}
+
+/* Customize the label (the container) */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #f1f1f1;
+  border: 2px solid grey;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input~.checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked~.checkmark {
+  background-color: #28B1AB;
+  border: none
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container .checkmark::after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* Show the checkmark when checked */
+.container input:checked~.checkmark::after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+
+
+/* Customize the label (the container) */
+.radioButton {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+}
+
+/* Hide the browser's default radio button */
+.radioButton input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom radio button */
+.ticked {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+
+}
+
+/* On mouse-over, add a grey background color */
+.radioButton:hover input~.ticked {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radioButton input:checked~.ticked {
+  background-color: #28B1AB;
+  border: none
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.ticked::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Style the indicator (dot/circle) */
+.radioButton .ticked::after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radioButton input:checked~.ticked::after {
+  display: block;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid grey;
+  border-radius: 6px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1em;
+  height: 46px;
+}
+
+input[type=text]:focus {
+  box-shadow: 0 0 8px #28B1AB;
+}
+
+input[type=email] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid grey;
+  border-radius: 6px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1em;
+  height: 46px;
+}
+
+input[type=email]:focus {
+  box-shadow: 0 0 8px #28B1AB;
+
+}
+
+select {
+  width: 50%;
+  padding: 16px 20px;
+  border: 2px solid grey;
+  border-radius: 6px;
+  background-color: #f1f1f1;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1em;
+  height: 46px;
+  text-indent: 10px;
+
+
+}
+
+.answers {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 0.9em;
+
+
+}
+
+input[type=date] {
+  width: 40%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid grey;
+  border-radius: 12px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1em;
+  height: 46px;
+
+}
+
+#IMconditional {
+  display: none;
+}
+
+#partnerconditional {
+  display: none;
+}
+
+input[type=date]:focus {
+  box-shadow: 0 0 8px #28B1AB;
+
+}
+
+select:invalid {
+  color: gray;
+}
+
+  
+input[type=email]:focus:required:invalid{
+  border: 4px solid #FF8D8D;
+     box-shadow: 0 0 8px #FFCCCC;
+}
+
+input[type=text]:required:valid {
+  border: 2px solid #28B1AB;
+  }
+  
+input[type=text]:focus:required:invalid{
+  border: 4px solid #FF8D8D;
+   box-shadow: 0 0 8px #FFCCCC;
+}
+
+input[type=number] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid grey;
+  border-radius: 6px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1em;
+  height: 46px;
+}
+
+input[type=number]:focus {
+  box-shadow: 0 0 8px #28B1AB;
+  }
+
+input[type=number]:required:valid {
+  border: 2px solid #28B1AB;
+  }
+  
+input[type=number]:focus:required:invalid{
+  border: 4px solid #FF8D8D;
+   box-shadow: 0 0 8px #FFCCCC;
+}
+</style>
+
+
+<script>
+
+$(document).ready(function() {
 
 
 
-    <h1> Training/Demo platform requests</h1>
-    <span class="subtext"> <small> This form is dedicated for requesting training clusters to the Field Engineering team. Training cluster should only be requested for few days and are NOT suited for PoC or other long running usages. For those, please contact the Field Enginerring team directly: field-engineering-nonofficial@dataiku.com
+//hides IM email if I am the IM is checked and sets IM email
+$("#implementationManager").change(function() {
+  if (this.checked) {
+    $('#IMconditional').hide();
+    var imEmail = $('input:email[name=requestersEmail]').val();
+    $('input:email[name=imEmail]').val(imEmail);
+  } else {
+    $('#IMconditional').show();
+  }
+})
+
+//Shows partner training if partner training checked
+$('input[name=platform]').change(function() {
+  if (this.id == "PartnerTraining") {
+    $("#partnerconditional").show();
+    $('input:email[name=partnerEmail]').prop('required', true);
+  } else {
+    $("#partnerconditional").hide();
+    $('input:email[name=partnerEmail]').removeAttr('required');
+  }
+})
+
+//hides and sets SSH, automation and hadoop if admin training selected
+$('input[name=AdminTraining]').change(function() {
+  if (this.id == "yes") {
+    $(".adminconditional").hide();
+    $('input:radio[name=Automation/API]').prop('checked', true);
+    $('input:radio[name=SSH]').prop('checked', true);
+    $('input:radio[name=Hadoop]').prop('checked', true);
+  } else {
+    $(".adminconditional").show();
+  }
+});
+
+//hides kubernetes and sets response to false
+$('input:radio[name=Kubernetes]').prop('checked', false);
+$("#kubernetes").hide();
+    
+
+//create vars
+var reqEmail = ('input[name="requestersEmail]').val();
+var imEmail = ('input[name="imEmail]').val();
+var trainEmail = ('input[name="trainerEmail]').val();
+var custEmail = ('input[name="customerEmail]').val();
+var orgName = ('input[name="customerOrgName]').val();
+var partEmail = ('input[name="partnerEmail]').val();
+var noStudios = ('input[name="noStudios"]').val()
+var today = new Date()	
+
+//date validation	
+//function dateValid() {
+  //$('input[name=startDate]').change(function() {
+ // var startDate = new Date($('input[name="startDate"]').val());	
+//  if (startDate <= today) {alert("Please select a valid start date")};
+  //}
+
+  //$('input[name=endDate]').change(function() {
+  //var endDate = new Date($('input[name="endDate"]').val());
+  //if (startDate > endDate)
+  //{alert("Please select a valid end date")};
+//}}
+
+
+
+})
+</script>
+
+<head>
+<h1> Training/Demo platform requests</h1>
+<span class="subtext"> <small> This form is dedicated for requesting training clusters to the Field Engineering team. Training cluster should only be requested for few days and are NOT suited for PoC or other long running usages. For those, please contact the Field Enginerring team directly: field-engineering-nonofficial@dataiku.com
         <br>
         <br>
         * indicates required field
       </small></span>
   </head>
-
-
-  <body>
-    <p>
-      <span class="question">
-        Your Email Address*</span>
-      <input type="email" name="RequestersEmail" placeholder="myemail@dataiku.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required">
-    </p>
-
+  <p>
+<form id="requestForm" name="requestForm" >
+<body ng-app="">
+<span class="question">Your Email Address*</span> 
+<input type="email" name="requestersEmail" ng-model="requestersEmail" placeholder="myemail@dataiku.com" required="required">
+<br>
+<span class="error" ng-show="requestForm.requestersEmail.$invalid && requestForm.requestersEmail.$touched">Please enter a valid email</span>
     <p>
       <label class="container">
-        <input type="checkbox" id="ImplementationManager" name="ImplementationManager" value="yes" checked=’checked’ onchange="valueChanged()" />
+        <input type="checkbox" id="implementationManager" name="implementationManager" value="yes" checked=’checked’ onchange="valueChanged()" />
         <span class="checkquest">I am the Implementation Manager</span>
         <span class="checkmark"></span>
       </label>
@@ -32,8 +414,9 @@
       <br>
       <span id="IMconditional">
         <span class="question">Implementation Manager Email Address*</span>
-        <input type="email" name="IMEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" placeholder="IMemail@dataiku.com" />
+        <input type="email" name="imEmail" ng-model="imEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" placeholder="IMemail@dataiku.com" />
         <br>
+      <span class="error" ng-show="requestForm.imEmail.$invalid && requestForm.imEmail.$touched">Please enter a valid email<br></span>
         <span class="subtext"><small>The email address of the implementation manager responsible for this training</small></span>
       </span>
     </p>
@@ -41,22 +424,28 @@
     <p>
       <span class="question">
         Trainer Email Address</span>
-      <input type="email" name="TrainerEmail" placeholder="traineremail@dataiku.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
-      <br><span class="subtext"> <small> The email address of the trainer that will teach the customer.</small></span>
+      <input type="email" name="trainerEmail" ng-model="trainerEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="traineremail@dataiku.com"/>
+<br>
+<span class="error" ng-show="requestForm.trainerEmail.$touched && requestForm.trainerEmail.$invalid">Please enter a valid email<br></span>
+<span class="subtext"> <small> The email address of the trainer that will teach the customer.</small></span>
     </p>
 
     <p>
       <span class="question">
         Customer Email Address*</span>
-      <input type="email" name="CustomerEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" placeholder="custemail@dataiku.com" />
-      <br><span class="subtext"> <small> This is the email address used for the license and is supposed to be someone from the customer's organization. This must be the email of the user registered into the license database.</small></span>
+      <input type="email" name="customerEmail" ng-model="customerEmail" ng-pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" placeholder="custemail@dataiku.com" />
+      <br>
+      <span class="error" ng-show="requestForm.customerEmail.$touched && requestForm.customerEmail.$invalid">Please enter a valid email<br></span>
+      <span class="subtext"> <small> This is the email address used for the license and is supposed to be someone from the customer's organization. This must be the email of the user registered into the license database.</small></span>
     </p>
 
     <p>
       <span class="question">
         Customer Organization Name*</span>
-      <input type="text" name="CustomerOrgName" pattern="([A-Za-z0-9\-]+)" maxlength="15" required="required" placeholder="Org name" />
-      <br><span class="subtext"> <small> Organization name or group identifier to whom the training is intended for. Alphanumeric and "-" only. No more than 15 chars.</small></span>
+      <input type="text" name="customerOrgName" ng-model="customerOrgName" ng-pattern="([A-Za-z0-9\-]+)" pattern="([A-Za-z0-9\-]+)" maxlength="15" required="required" placeholder="Org name" />
+      <br>
+            <span class="error" ng-show="requestForm.customerOrgName.$touched && requestForm.customerOrgName.$invalid">Please enter a valid name<br></span>
+            <span class="subtext"> <small> Organization name or group identifier to whom the training is intended for. Alphanumeric and "-" only. No more than 15 chars.</small></span>
     </p>
 
     <p>
@@ -68,7 +457,7 @@
           <span class="ticked"></span>
         </label>
         <label class="radioButton">Partner Training
-          <input type="radio" name="platform" value="PartnerTraining" id="PartnerTraining">
+		<input type="radio" name="platform" value="PartnerTraining" id="PartnerTraining" ng-model="partnerTraining">
           <span class="ticked"></span>
         </label>
         <label class="radioButton">Demo
@@ -82,8 +471,9 @@
       <br>
       <span id="partnerconditional">
         <span class="question">
-          Partner Email Address:</span>
-        <input type="email" name="PartnerEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/ placeholder="partneremail@dataiku.com">
+          Partner Email Address*:</span>
+	        <input type="email" name="partnerEmail" ng-model="partnerEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/ placeholder="partneremail@dataiku.com" ng-required="partnerTraining"><br>	
+        <span class="error" ng-show="requestForm.partnerEmail.$touched && requestForm.partnerEmail.$invalid">Please enter a valid email<br></span>
       </span>
     </p>
 
@@ -136,9 +526,10 @@
     <p>
       <br>
       <span class="question">Number of studios*
-        <span class="subtext"><small> Number of DSS Design you 'd like (NUMERICAL values ONLY ) . This is different from the number of users. If you request automation and API Nodes too, you will get one per design node. If this an admin training, number of studios is the number of trainees.</small></span>
+        <span class="subtext"><small> NUMERICAL VALUES ONLY. This is different from the number of users. If you request automation and API Nodes too, you will get one per design node. If this an admin training, number of studios is the number of trainees.</small></span>
       </span>
-      <input type="text" name="NoStudios" pattern="\d" min="1" max="99" required="required"><br>
+      <input type="number" name="noStudios" ng-model="noStudios" min="1" max="999" required="required"><br>
+       <span class="error" ng-show="requestForm.noStudios.$touched && requestForm.noStudios.$invalid">Please enter a valid number<br></span>
     </p>
 
     <p>
@@ -230,6 +621,7 @@
     </p>
 
     <p><br>
+    <span id="kubernetes">
       <span class="question">
         Do you need Kubernetes (experimental)?*</span>
       <span class="subtext"><small> NOT IMPLEMENTED YET - field is available here for when the feature is released </small></span><br><br>
@@ -243,6 +635,7 @@
           <span class="ticked"></span>
         </label>
       </span>
+      </span>
     </p>
 
     <p>
@@ -253,5 +646,8 @@
         <span class="checkmark"></span>
       </label>
     </p>
-  </body>
+      </body>
 </form>
+    <button type="submit" form="requestForm" value="Submit">Submit</button>
+
+</html>
