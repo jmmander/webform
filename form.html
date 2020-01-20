@@ -2,6 +2,8 @@
 <html>
 <script src=https://cdn.jsdelivr.net/jquery/1.12.4/jquery.min.js></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="jquery.min.js"></script>
+  <script src="jquery.serialize-object.min.js"></script>
 
 <style>
 </style>
@@ -11,7 +13,7 @@
 
 <head>
   <h1> Training/Demo platform requests</h1>
-  <span class="subtext"> <small> This form is dedicated for requesting training clusters to the Field Engineering team. Training cluster should only be requested for few days and are NOT suited for PoC or other long running usages. For those, please contact the Field Enginerring team directly: field-engineering-nonofficial@dataiku.com
+  <span class="subtext"> <small> This form is dedicated for requesting training clusters to the Field Engineering team. Training cluster should only be requested for few days and are NOT suited for PoC or other long running usages. For those, please contact the <a href="mailto:field-engineering-nonofficial@dataiku.com">Field Enginerring team</a>.
         <br>
         <br>
         * indicates required field
@@ -19,15 +21,17 @@
 </head>
 <p>
   <form id="requestForm" name="requestForm">
-
     <body ng-app="">
+      <span class="hidden">
+      <input type="text" id="dateTime" name="dateTime">
+      </span>
       <span class="question">Your Email Address*</span>
       <input type="email" id="requestersEmail" name="requestersEmail" ng-model="requestersEmail" placeholder="myemail@dataiku.com" required="required">
       <br>
       <span class="error" ng-show="requestForm.requestersEmail.$invalid && requestForm.requestersEmail.$touched">Please enter a valid email</span>
       <p>
         <label class="container">
-        <input type="checkbox" id="implementationManager" name="implementationManager" value="yes" checked=’checked’  />
+        <input type="checkbox" id="implementationManager" name="implementationManager" value="yes"  />
         <span class="checkquest">I am the Implementation Manager</span>
         <span class="checkmark"></span>
       </label>
@@ -136,11 +140,11 @@
         <span class="subtext"> <small> If you are not sure, the answer is probably no.</small></span><br><br>
         <span class="answers">
         <label class="radioButton">Yes
-          <input type="radio" name="AdminTraining" value="Yes" id="yes" required="required">
+          <input type="radio" name="adminTraining" value="Yes" id="yes" required="required">
           <span class="ticked"></span>
         </label>
         <label class="radioButton">No
-          <input type="radio" name="AdminTraining" value="No" id="no" >
+          <input type="radio" name="adminTraining" value="No" id="no" >
           <span class="ticked"></span>
         </label>
         </span>
@@ -158,7 +162,7 @@
       <p>
       <span class="question">
         Number of users per studio*</span>
-        <select required="required" name="UsersPerStudio">
+        <select required="required" name="usersPerStudio">
         <option value="" disabled selected hidden>- Please select -</option>
         <option value="1" selected> 1</option>
         <option value="2"> 2</option>
@@ -194,13 +198,12 @@
         Do you need Automation and API nodes?*</span><br><br>
         <span class="answers">
         <label class="radioButton">Yes
-          <input type="radio" name="Automation/API" value="Yes"> <span class="ticked"></span></label>
+          <input type="radio" name="API" value="Yes"> <span class="ticked"></span></label>
         <label class="radioButton">No
-          <input type="radio" name="Automation/API" value="No" checked="checked" required="required">
+          <input type="radio" name="API" value="No" checked="checked" required="required">
           <span class="ticked"></span> <br>
         </label>
         </span>
-        
       </p>
       </span>
       <span class="adminconditional">
@@ -259,14 +262,15 @@
       <p>
         <br>
         <label class="container">
-        <input type="checkbox" name="SendCopy" value="yes" />
+        <input type="checkbox" name="sendCopy" value="yes" />
         <span class="checkquest">Send me a copy of my responses</span>
         <span class="checkmark"></span>
       </label>
       </p>
     </body>
   </form>
- <p>
+  <p>
     <br><br>
-  <button class="button" type="submit" form="requestForm" value="Submit">Submit</button>
+  <button class="button" id='submit' type="submit" form="requestForm" value="Submit">Submit</button>
   </p>
+</html>
