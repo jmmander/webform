@@ -292,7 +292,6 @@ input[type="number"]:focus:required:invalid {
   box-shadow: 0 0 8px #ffcccc;
 }
 
-
 .button {
   display: inline-block;
   border-radius: 4px;
@@ -339,3 +338,6 @@ input[type="number"]:focus:required:invalid {
   right: 0;
 }
 
+.hidden {
+  display: none;
+}
