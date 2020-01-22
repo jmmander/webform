@@ -26,9 +26,10 @@
       <input type="text" id="dateTime" name="dateTime">
       </span>
       <span class="question">Your Email Address*</span>
-      <input type="email" id="requestersEmail" name="requestersEmail" ng-model="requestersEmail" placeholder="myemail@dataiku.com" required="required">
+      <input type="email" id="requestersEmail" name="requestersEmail" ng-model="requestersEmail" placeholder="myemail@dataiku.com" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
       <br>
-      <span class="error" ng-show="requestForm.requestersEmail.$invalid && requestForm.requestersEmail.$touched">Please enter a valid email</span>
+      <span class="error" id='ngreqEmailError' ng-if="requestForm.requestersEmail.$invalid && requestForm.requestersEmail.$touched">Please enter a valid email<br></span>
+      <span class="error" id='reqEmailError' style="display: none">This is a required field</span>
       <p>
         <label class="container">
         <input type="checkbox" id="implementationManager" name="implementationManager" value="yes"  />
@@ -43,7 +44,8 @@
         <span class="question">Implementation Manager Email Address*</span>
         <input type="email" name="imEmail" id="imEmail" ng-model="imEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" placeholder="IMemail@dataiku.com" />
         <br>
-        <span class="error" ng-show="requestForm.imEmail.$invalid && requestForm.imEmail.$touched">Please enter a valid email<br></span>
+        <span class="error" id='ngimEmailError' ng-show="requestForm.imEmail.$invalid && requestForm.imEmail.$touched">Please enter a valid email<br></span>
+                  <span class="error" id='imEmailError' style="display: none">This is a required field<br></span>
         <span class="subtext"><small>The email address of the implementation manager responsible for this training</small></span>
         </span>
       </p>
@@ -53,16 +55,17 @@
         Trainer Email Address</span>
         <input type="email" name="trainerEmail" ng-model="trainerEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="traineremail@dataiku.com" />
         <br>
-        <span class="error" ng-show="requestForm.trainerEmail.$touched && requestForm.trainerEmail.$invalid">Please enter a valid email<br></span>
+        <span class="error" id='trainerEmailError'ng-show="requestForm.trainerEmail.$touched && requestForm.trainerEmail.$invalid">Please enter a valid email<br></span>
         <span class="subtext"> <small> The email address of the trainer that will teach the customer.</small></span>
       </p>
 
       <p>
         <span class="question">
         Customer Email Address*</span>
-        <input type="email" name="customerEmail" ng-model="customerEmail" ng-pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" placeholder="custemail@dataiku.com" />
+        <input type="email" name="customerEmail" ng-model="customerEmail" ng-pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" placeholder="custemail@dataiku.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
         <br>
-        <span class="error" ng-show="requestForm.customerEmail.$touched && requestForm.customerEmail.$invalid">Please enter a valid email<br></span>
+        <span class="error" id='custEmailError' style="display: none">This is a required field<br></span>
+                <span class="error" id='ngcustEmailError' ng-show="requestForm.customerEmail.$touched && requestForm.customerEmail.$invalid">Please enter a valid email<br></span>
         <span class="subtext"> <small> This is the email address used for the license and is supposed to be someone from the customer's organization. This must be the email of the user registered into the license database.</small></span>
       </p>
 
@@ -71,7 +74,8 @@
         Customer Organization Name*</span>
         <input type="text" name="customerOrgName" ng-model="customerOrgName" ng-pattern="([A-Za-z0-9\-]+)" pattern="([A-Za-z0-9\-]+)" maxlength="15" required="required" placeholder="Org name" />
         <br>
-        <span class="error" ng-show="requestForm.customerOrgName.$touched && requestForm.customerOrgName.$invalid">Please enter a valid name<br></span>
+        <span class="error" id='ngorgNameError' ng-show="requestForm.customerOrgName.$touched && requestForm.customerOrgName.$invalid">Please enter a valid name<br></span>
+        <span class="error" id='orgNameError' style="display: none">This is a required field<br></span>
         <span class="subtext"> <small> Organization name or group identifier to whom the training is intended for. Alphanumeric and "-" only. No more than 15 chars.</small></span>
       </p>
 
@@ -92,6 +96,7 @@
           <span class="ticked"></span>
         </label>
         </span>
+        <span class="error" id='platformError' style="display: none">Please select a platform<br></span>
       </p>
 
       <p>
@@ -99,8 +104,9 @@
         <span id="partnerconditional">
         <span class="question">
           Partner Email Address*:</span>
-        <input type="email" name="partnerEmail" ng-model="partnerEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" / placeholder="partneremail@dataiku.com" ng-required="partnerTraining"><br>
-        <span class="error" ng-show="requestForm.partnerEmail.$touched && requestForm.partnerEmail.$invalid">Please enter a valid email<br></span>
+        <input type="email" name="partnerEmail" ng-model="partnerEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" / placeholder="partneremail@dataiku.com" ng-required="partnerTraining" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"><br>
+        <span class="error" id='partnerEmailError' style="display: none">This is required for partner trainings<br></span>
+                  <span class="error" id='ngpartnerEmailError' ng-show="requestForm.partnerEmail.$touched && requestForm.partnerEmail.$invalid">Please enter a valid email<br></span>
         </span>
       </p>
 
@@ -116,6 +122,7 @@
         <option value="Sydney/Aus"> Sydney / Aus</option>
         <option value="Other"> Other</option>
       </select>
+        <span class="error" id='officeError' style="display: none">Please select an office<br></span>
       </p>
 
       <p>
@@ -132,6 +139,7 @@
         <option value="Sydney"> Sydney</option>
         <option value="Singapore"> Singapore</option>
       </select>
+        <span class="error" id='trainingLocationError' style="display: none">Please select a location<br></span>
       </p>
 
       <p>
@@ -148,6 +156,7 @@
           <span class="ticked"></span>
         </label>
         </span>
+        <span class="error" id='adminError' style="display: none">Please select an option<br></span>
       </p>
 
       <p>
@@ -156,7 +165,9 @@
         <span class="subtext"><small> NUMERICAL VALUES ONLY. This is different from the number of users. If you request automation and API Nodes too, you will get one per design node. If this an admin training, number of studios is the number of trainees.</small></span>
         </span>
         <input type="number" name="noStudios" ng-model="noStudios" min="1" max="999" required="required"><br>
-        <span class="error" ng-show="requestForm.noStudios.$touched && requestForm.noStudios.$invalid">Please enter a valid number<br></span>
+        <span class="error" id="ngnoStudiosError" ng-show="requestForm.noStudios.$touched && requestForm.noStudios.$invalid">Please enter a valid number<br></span>
+                <span class="error" id="noStudiosError" style="display: none">This is a required field<br></span>
+        
       </p>
       <span class="adminconditional">
       <p>
@@ -182,14 +193,18 @@
         <span class="question">
         When do you need the instance ready?* </span>
         <input type="date" ng-model="startDate" name="startDate" required="required">
-        <br><span class="subtext"> <small> Delivery date - MUST be at least 7 days after the request creation date . This is NOT the first day of the training, but the day on which you want the instances to be available to test them. Take a reasonable margin while being aware of the cost.</small></span>
+                <br> <span class="error" id="startDateError" style="display: none">Please enter a valid date<br></span>
+        <span class="subtext"> <small> Delivery date - MUST be at least 7 days after the request creation date . This is NOT the first day of the training, but the day on which you want the instances to be available to test them. Take a reasonable margin while being aware of the cost.</small></span>
+
       </p>
 
       <p>
         <span class="question">
         Until when do you need the instances?*</span>
         <input type="date" name="endDate" required="required" min="{{startDate != undefined ? startDate : '0001-01-01' | date: 'yyyy-MM-dd'}}" ng-model="endDate"><br>
-        <span class="error" ng-show="requestForm.startDate.$dirty && requestForm.endDate.$dirty && requestForm.endDate.$invalid"> The end date must come after the start date<br></span> <span class="subtext"><small> This is the last day on which the instances will be available. They will be entirely deleted the day AFTER.</small></span>
+        <span class="error" id="endDateEarlyError" ng-show="requestForm.startDate.$dirty && requestForm.endDate.$dirty && requestForm.endDate.$invalid"> The end date must come after the start date<br></span>         <span class="error" id="EndDateError" style="display: none">Please enter a valid date<br></span>
+        <span class="subtext"><small> This is the last day on which the instances will be available. They will be entirely deleted the day AFTER.</small></span><br>
+
       </p>
       <span class="adminconditional">
       <p>
