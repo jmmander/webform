@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  //sets valid dates in selector 
+  //date validation
   Date.prototype.yyyymmdd = function() {
     var mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based
     var dd = this.getDate().toString();
@@ -24,9 +24,7 @@ $(document).ready(function() {
   $("#implementationManager").change(function() {
     if (this.checked) {
       $("#IMconditional").hide();
-      $('#imEmail').val( $('#requestersEmail').val())
-      //var imEmail = //$("name='requestersEmail']").val();
-      //$("input:email[name='imEmail']").val(imEmail);
+      $('#imEmail').val($('#requestersEmail').val())
     } else {
       $("#IMconditional").show();
     }
@@ -38,10 +36,10 @@ $(document).ready(function() {
       $("#partnerconditional").show();
       $("input:email[name='partnerEmail']").prop("required", true);
     } else {
-      $("#partnerconditional").hide();
+      $("#partnerconditional").hide();}
       $("input:email[name='partnerEmail']").removeAttr("required");
-    }
-  });
+    });
+  
 
   //hides and sets SSH, automation and hadoop if admin training selected
   $("input[name='adminTraining']").change(function() {
@@ -60,16 +58,17 @@ $(document).ready(function() {
   $("#kubernetes").hide();
   $('input[name="Kubernetes"]')[1].checked = true;
   
- function validateEmail(email) {
-  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
-}
+  
+  });
 
-  var $form = $("form#requestForm"),
-    url =
-      "https://script.google.com/macros/s/AKfycbwo0JNckKfRpkSUOVGFuWTBH2LjWy4_OMtZXrVWi4VT4ZUcyio/exec";
+
+  
+
+
+
 
   $("#submit").on("click", function(e) {
+    
      //sets dateTime to submitted datetime for timestamp
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -78,43 +77,68 @@ $(document).ready(function() {
     $('input[name="dateTime"]').val(dateTime)
     
     //server side data validation
-    //creates variables
-   	var reqEmail =  $('input[name="requestersEmail"]').val()
-    var imCheck = $('input[name="implementationManager"]').val()
-    var imEmail = $('input[name="imEmail"]').val()
-    var trainerEmail = $('input[name="trainerEmail"]').val()
-    var customerEmail =$('input[name="customerEmail"]').val()
-    var customerOrgName = $('input[name="customerOrgName"]').val()
-    var platform = $("input[name='platform']:checked").val();
-    var partnerEmail = $('input[name="partnerEmail"]').val();
-    var office = $('input[name="office"]').val(); 
-    var trainingLocation = $('input[name="trainingLocation"]').val(); 
-    var adminTraining = $("input[name='adminTraining']:checked").val();
-    var noStudios = $('input[name="noStudios"]').val();
-    var usersPerStudio = $('input[name="usersPerStudio"]').val();
-    var startDate = $('input[name="startDate"]').val(); 
-    var endDate = $('input[name="endDate"]').val(); 
-    var API = $("input[name='API']:checked").val();
-    var SSH = $("input[name='SSH']:checked").val();
-    var Hadoop = $("input[name='Hadoop']:checked").val();
-    var Kubernetes = $("input[name='Kubernetes']:checked").val();
-    var sendCopy = $('input[name="sendCopy"]').val()
+   //checks required fields are not empty and shows error message
+  let valid = true;
+  $('[required]').each(function() {
+    if ($(this).is(':invalid') || !$(this).val()) 
+    {valid = false;
+    var element = $(this).attr('name');
+     if (element == "requestersEmail") {
+       alert($('#ngreqEmailError').hasClass("ng-hide"))
+       if ($('#ngreqEmailError').hasClass("ng-show"))
+       {
+         $('#reqEmailError').show();
+      }
+     }
+     
+     if (element == 'imEmail')
+       {$('#imEmailError').show();}
+     if (element == 'customerEmail')
+       {$('#custEmailError').show();}
+     if (element == 'customerOrgName')
+       {$('#orgNameError').show();}
+     if (element == 'platform') 
+      {$("#platformError").show();}
+     if (element == 'partnerEmail') 
+      {$("#partnerEmailError").show();}
+     if (element == 'office')
+       {$("#officeError").show();}
+     if (element == 'trainingLocation')
+       {$("#trainingLocationError").show();}
+     if (element == 'adminTraining')
+       {$("#adminError").show();}
+     if (element == 'noStudios')
+       {$("#noStudiosError").show();}
+     if (element == 'startDate')
+       {$("#startDateError").show();}
+     if (element == 'endDate')
+       {$("#EndDateError").show();}
+     }
+  })
+  if (!valid) 
+    {alert("Please fill in all requried fields");
+    return false;}
+
+
     
-    //email validation
-    var emails = [reqEmail, imEmail, trainerEmail, customerEmail, partnerEmail]
-    //for (email of emails) 
-      //{if (!$(this).prop('required')){
-        //if (!$(this).val().length === 0){
-          //validateEmail(email)}}
-       //else if ($(this).prop('required')){
-        //if (!$(this).val().length === 0){
-          //validateEmail(email)
-        //}}
-          
-      
-    
-    
-    
+  function validateEmail(email) {
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+     $("input[type='email']").each(function() {
+       email = $(this).val()
+       if (email != "")
+         {var validEmail = validateEmail(email);
+          if (!validEmail){
+            var whichEmail = $(this).attr('name');
+            console.log(whichEmail);
+            return false}
+      }
+     });
+   
+ 
+ var $form = $("form#requestForm"),
+    url = "https://script.google.com/macros/s/AKfycbwo0JNckKfRpkSUOVGFuWTBH2LjWy4_OMtZXrVWi4VT4ZUcyio/exec";
     
     e.preventDefault();
     var jqxhr = $.ajax({
@@ -124,4 +148,4 @@ $(document).ready(function() {
       data: $form.serializeObject()
     }).success(alert("your form has been submitted"));
   });
-});
+
