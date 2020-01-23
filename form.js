@@ -23,20 +23,22 @@ $(document).ready(function() {
   //hides IM email if I am the IM is checked and sets IM email
   $("#implementationManager").change(function() {
     if (this.checked) {
-      $("#IMconditional").hide();
-      $('#imEmail').val($('#requestersEmail').val())
+      $("#IMconditional").hide(300);
+      $('#imEmail').val($('#requestersEmail').val());
     } else {
-      $("#IMconditional").show();
+      $("#IMconditional").show(300);
     }
   });
+  
+   var g = ($('#implementationManager').is(':checked') ? 'yes' : 'no' );
 
   //Shows partner training if partner training checked
   $("input[name='platform']").change(function() {
     if (this.id == "PartnerTraining") {
-      $("#partnerconditional").show();
+      $("#partnerconditional").show(300);
       $("input:email[name='partnerEmail']").prop("required", true);
     } else {
-      $("#partnerconditional").hide();}
+      $("#partnerconditional").hide(300);}
       $("input:email[name='partnerEmail']").removeAttr("required");
     });
   
@@ -44,13 +46,12 @@ $(document).ready(function() {
   //hides and sets SSH, automation and hadoop if admin training selected
   $("input[name='adminTraining']").change(function() {
     if (this.id == "yes") {
-      $(".adminconditional").hide();
-      
+      $(".adminconditional").hide(300);
       $('input[name="API"]')[0].checked = true;
       $('input[name="SSH"]')[0].checked = true;
       $('input[name="Hadoop"]')[0].checked = true;
     } else {
-      $(".adminconditional").show();
+      $(".adminconditional").show(300);
     }
   });
 
@@ -58,9 +59,20 @@ $(document).ready(function() {
   $("#kubernetes").hide();
   $('input[name="Kubernetes"]')[1].checked = true;
   
+$("input[name='trainerEmail']").change(function() {
+  if ($(this) != ""){
+    var email = ($(this).val());
+    if (validEmail(email))
+      {$(this).css('border', '2px solid #28b1ab');}
+  }});
   
   });
 
+
+function validEmail(email) {
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
 
   
 
@@ -74,23 +86,20 @@ $(document).ready(function() {
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" +          today.getSeconds();
     var dateTime = date+' '+time;
-    $('input[name="dateTime"]').val(dateTime)
+    $('input[name="dateTime"]').val(dateTime);
     
     //server side data validation
+    
+ 
+    
    //checks required fields are not empty and shows error message
   let valid = true;
   $('[required]').each(function() {
     if ($(this).is(':invalid') || !$(this).val()) 
     {valid = false;
     var element = $(this).attr('name');
-     if (element == "requestersEmail") {
-       alert($('#ngreqEmailError').hasClass("ng-hide"))
-       if ($('#ngreqEmailError').hasClass("ng-show"))
-       {
-         $('#reqEmailError').show();
-      }
-     }
-     
+     if (element == "requestersEmail") 
+        {$('#reqEmailError').show();}
      if (element == 'imEmail')
        {$('#imEmailError').show();}
      if (element == 'customerEmail')
@@ -114,27 +123,26 @@ $(document).ready(function() {
      if (element == 'endDate')
        {$("#EndDateError").show();}
      }
-  })
+  });
   if (!valid) 
     {alert("Please fill in all requried fields");
     return false;}
 
-
+ 
     
-  function validateEmail(email) {
-  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
-}
-     $("input[type='email']").each(function() {
-       email = $(this).val()
-       if (email != "")
-         {var validEmail = validateEmail(email);
-          if (!validEmail){
-            var whichEmail = $(this).attr('name');
-            console.log(whichEmail);
-            return false}
-      }
-     });
+      //date confirmation for unusual date rangews
+ var start = $('input[name="startDate"]').val();
+ var end = $('input[name="endDate"]').val();
+ var startDate = moment(start)
+ var endDate = moment(end)
+    var duration = endDate.diff(startDate, 'days');
+    if (duration < 2 || duration > 12){
+        window.confirm("You have selected a duration of " + duration + " days. Please confirm this is correct.");}
+    
+   
+    //send email if checkbox is selected
+    //if ($('#sendCopy') == "yes") 
+      //{}
    
  
  var $form = $("form#requestForm"),
