@@ -1,0 +1,32 @@
+body {
+  color: #28b1ab;
+  font-family: "Source Sans Pro", sans-serif;
+  padding: 10%;
+  margin: 0;
+  font-size: 2em;
+  display: block;
+  text-align: center;
+    }
+
+
+#new_logo {
+    background: url('http://dku-assets.s3.amazonaws.com/img/sprite_dataiku_new_logo.jpg') no-repeat 0 0;
+    background-size: 534px 1200px;
+    width: 534px;
+    height: 300px;
+    background-position: 0 0;
+    margin: auto;
+}
+#new_logo.animation {
+    background-position: 0 0;
+    -webkit-animation: play 0.8s steps(3, start);
+            animation: play 0.8s steps(3, start);
+} 
+@-webkit-keyframes play {
+    from {background-position: 0 0px;}
+    to {background-position: 0 -900px;}
+} 
+@keyframes play {
+    from {background-position: 0 0px;}
+    to {background-position: 0 -900px;}
+}
