@@ -18,7 +18,7 @@
       </small></span>
 </head>
 <p>
-  <form id="requestForm" name="requestForm" class='formContainer'>
+  <form id="requestForm" name="requestForm" class='formContainer' method="post" action="mail.php">
     <body ng-app="">
       <span class="hidden">
       <input type="text" id="dateTime" name="dateTime">
@@ -52,7 +52,7 @@
       <p>
         <span class="question">
         Trainer Email</span>
-        <input type="email" name="trainerEmail" ng-model="trainerEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="traineremail@dataiku.com" />
+        <input type="email" name="trainerEmail" id='trainerEmail' ng-model="trainerEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="traineremail@dataiku.com" />
         <br>
         <span class="error" id='trainerEmailError'ng-show="requestForm.trainerEmail.$touched && requestForm.trainerEmail.$invalid">Please enter a valid email<br></span>
         <span class="subtext"> <small> The email address of the trainer that will teach the customer.</small></span>
@@ -61,7 +61,7 @@
       <p>
         <span class="question">
         Customer Email<span class="asterisk">*</span></span>
-        <input type="email" name="customerEmail" ng-model="customerEmail" required="required" placeholder="custemail@companyname.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
+        <input type="email" name="customerEmail" id='customerEmail' ng-model="customerEmail" required="required" placeholder="custemail@companyname.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
         <br>
         <span class="error" id='custEmailError' style="display: none">This is a required field<br></span>
                 <span class="error" id='ngcustEmailError' ng-show="requestForm.customerEmail.$touched && requestForm.customerEmail.$invalid">Please enter a valid email<br></span>
@@ -71,7 +71,7 @@
       <p>
         <span class="question">
         Organization Name<span class="asterisk">*</span></span>
-        <input type="text" name="customerOrgName" ng-model="customerOrgName" pattern="([A-Za-z0-9\-]+)" maxlength="15" required="required" placeholder="Org-name" />
+        <input type="text" name="customerOrgName"  id="customerOrgName" ng-model="customerOrgName" pattern="([A-Za-z0-9\-]+)" maxlength="15" required="required" placeholder="Org-name" />
         <br>
         <span class="error" id='ngorgNameError' ng-show="requestForm.customerOrgName.$touched && requestForm.customerOrgName.$invalid">Alphanumeric and "-" only. No spaces. No more than 15 chars.<br></span>
         <span class="error" id='orgNameError' style="display: none">This is a required field<br></span>
@@ -201,16 +201,16 @@
         Start date<span class="asterisk">*</span></span>
         <input type="date" ng-model="startDate" name="startDate" required="required">
                 <br> <span class="error" id="startDateError" style="display: none">Please enter a valid date<br></span>
-        <span class="subtext"> <small> Delivery date - MUST be at least 7 days after the request creation date . This is NOT the first day of the training, but the day on which you want the instances to be available to test them. Take a reasonable margin while being aware of the cost.</small></span>
+        <span class="datesubtext"> <small> Delivery date - MUST be at least 7 days after the request creation date . This is NOT the first day of the training, but the day on which you want the instances to be available to test them. Take a reasonable margin while being aware of the cost.</small></span>
 
-      </p>
+      
 
-      <p>
+  
         <span class="question">
         End date<span class="asterisk">*</span></span>
         <input type="date" name="endDate" required="required" min="{{startDate != undefined ? startDate : '0001-01-01' | date: 'yyyy-MM-dd'}}" ng-model="endDate"><br>
         <span class="error" id="endDateEarlyError" ng-show="requestForm.startDate.$dirty && requestForm.endDate.$dirty && requestForm.endDate.$invalid"> The end date must come after the start date<br></span>         <span class="error" id="EndDateError" style="display: none">Please enter a valid date<br></span>
-        <span class="subtext"><small> This is the last day on which the instances will be available. They will be entirely deleted the day AFTER.</small></span>
+        <span class="datesubtext"><small> This is the last day on which the instances will be available. They will be entirely deleted the day AFTER.</small></span>
       </p>
       <span class="adminconditional">
       <p>
@@ -284,12 +284,15 @@
       <p>
         <br><br><br>
         <label class="containerLeft">
-        <input type="checkbox" name="sendCopy" id="sendCopy" value="yes" checked='checked'/>
-        <span class="checkquest">Send me a copy of my responses</span>
-        <span class="checkmark"></span>
-      </label>
-      </p>
-    </body>
+          <input type="checkbox" name="sendCopy" id="sendCopy" value="yes" checked='checked'/>
+          <span class="checkquest">Send me a copy of my responses</span>
+          <span class="checkmark"></span>
+        </label>
+        <br>
+        <p>
+<span class='additional'>If you have any additional requirements or requests please email the <a href="mailto:field-engineering-nonofficial@dataiku.com">Field Enginerring team</a>.</span>
+    </p>
+</body>
   </form>
   <p>
     <br>

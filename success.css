@@ -10,12 +10,14 @@ body {
 
 
 #new_logo {
-    background: url('http://dku-assets.s3.amazonaws.com/img/sprite_dataiku_new_logo.jpg') no-repeat 0 0;
-    background-size: 534px 1200px;
-    width: 534px;
+    background: url('bwbird.jpg') no-repeat 0 0;
+    background-size: 800px 1200px;
+    width: 800px;
     height: 300px;
     background-position: 0 0;
-    margin: auto;
+    margin: -5%;
+    margin-left: 19%;
+    
 }
 #new_logo.animation {
     background-position: 0 0;

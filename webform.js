@@ -153,21 +153,35 @@ $("input[name='trainerEmail']").change(function() {
       if (duration < 2 || duration > 14)
           {window.confirm("You have selected a duration of " + duration + " days. Please confirm this is correct.");}
           
-        
-          //send email if checkbox is selected
-          //if ($('#sendCopy') == "yes") 
-            //{}
-        
-      if (!valid) 
-        {alert("Please ensure all required fields are filled in correctly");}
+      
+ 
+
+    
+
+
+
+      //if (!valid) 
+       // {alert("Please ensure all required fields are filled in correctly");}
       //e.preventDefault();
       //e.stopPropagation();
         //return false;}
-      else {
+    //  else {
+        //sends copy of form if requested
+      //  if ($("#sendCopy").is(':checked')) {
+        //  var email = $('#requestersEmail').val();
+        //  var subject = "Your platform request for " + $('#customerOrgName').val();
+         // var body = "email: " + $('#requestersEmail').val() + 
+          //"\n IM email: " + $('#imEmail').val() +
+          //"\n trainer email: " + $('#trainerEmail').val() + 
+          //"\n customer email: " + $
+           // <a href="mailto:hello@hello.com?subject=Email Subject&body=Contents of email">hello@hello.com</a>
+      
+        //}
       var $form = $("form#requestForm"),
           url = "https://script.google.com/macros/s/AKfycbwo0JNckKfRpkSUOVGFuWTBH2LjWy4_OMtZXrVWi4VT4ZUcyio/exec";
           
           e.preventDefault();
+          $("#submit").attr("disabled", true);
           var jqxhr = $.ajax({
             url: url,
             method: "GET",
@@ -176,6 +190,6 @@ $("input[name='trainerEmail']").change(function() {
           }).done(function()
           {window.location.href = 'success.html';});    
         
-      };
+      
       })
     });
