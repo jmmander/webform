@@ -18,7 +18,7 @@
       </small></span>
 </head>
 <p>
-  <form id="requestForm" name="requestForm" class='formContainer' method="post" action="mail.php">
+  <form id="requestForm" name="requestForm" class='formContainer' method="post" >
     <body ng-app="">
       <span class="hidden">
       <input type="text" id="dateTime" name="dateTime">
@@ -65,17 +65,17 @@
         <br>
         <span class="error" id='custEmailError' style="display: none">This is a required field<br></span>
                 <span class="error" id='ngcustEmailError' ng-show="requestForm.customerEmail.$touched && requestForm.customerEmail.$invalid">Please enter a valid email<br></span>
-        <span class="subtext"> <small> This must be the email of the user registered into the license database.</small></span>
+        <span class="subtext"> <small> This must be the email of the user registered in the license database.</small></span>
       </p>
 
       <p>
         <span class="question">
         Organization Name<span class="asterisk">*</span></span>
-        <input type="text" name="customerOrgName"  id="customerOrgName" ng-model="customerOrgName" pattern="([A-Za-z0-9\-]+)" maxlength="15" required="required" placeholder="Org-name" />
+        <input type="text" name="customerOrgName"  id="customerOrgName" ng-model="customerOrgName" pattern="([A-Za-z0-9\-]+)" maxlength="15" required="required" placeholder="Org-name"  style="text-transform: lowercase"/>
         <br>
         <span class="error" id='ngorgNameError' ng-show="requestForm.customerOrgName.$touched && requestForm.customerOrgName.$invalid">Alphanumeric and "-" only. No spaces. No more than 15 chars.<br></span>
         <span class="error" id='orgNameError' style="display: none">This is a required field<br></span>
-        <span class="subtext"> <small> Organization name or group identifier to whom the training is intended for. Alphanumeric and "-" only. No more than 15 chars.</small></span>
+        <span class="subtext"> <small> Unique group identifier for whom the training is intended. Alphanumeric and "-" only. No more than 15 chars. Only lowercase accepted.</small></span>
       </p>
 
       <p>
@@ -134,7 +134,7 @@
         <option value="" disabled selected hidden>- Please select -</option>
         <option value="Paris"> Paris</option>
         <option value="London"> London</option>
-        <option value="NorthAmericaEast"> North America (East coast)</option>
+        <option value="NorthAmericaEast"> North America East</option>
         <option value="NorthAmericaWest"> North America West</option>
         <option value="Frankfurt"> Frankfurt</option>
         <option value="Dublin"> Dublin</option>
@@ -158,7 +158,7 @@
           <input type="radio" name="adminTraining" value="No" id="no" >
           <span class="ticked"></span>
         </label>
-          <span class="radiosubtext"> <small> If you are not sure, the answer is probably no.</small></span>
+          <span class="radiosubtext"> <small> Admin trainings are run by architects.</small></span>
         </span>
         <br>
         <span class="error" id='adminError' style="display: none">Please select an option<br></span>
@@ -193,19 +193,16 @@
         <option value="9"> 9</option>
         <option value="10"> 10</option>
       </select>
-        <br><span class="subtext"><small> For admin trainings, this number will be forced to 1. For other trainings, just select this number according to your requirements for collaboration : a smaller number will NOT yield additional compute power per user.</small></span>
+        <br><span class="subtext"><small> For admin trainings, this number will be 1. For other trainings, just select this number according to your requirements for collaboration: a smaller number will NOT yield additional compute power per user.</small></span>
       </p>
       </span>
       <p>
         <span class="question">
         Start date<span class="asterisk">*</span></span>
         <input type="date" ng-model="startDate" name="startDate" required="required">
-                <br> <span class="error" id="startDateError" style="display: none">Please enter a valid date<br></span>
+        <br> <span class="error" id="startDateError" style="display: none">Please enter a valid date<br></span>
         <span class="datesubtext"> <small> Delivery date - MUST be at least 7 days after the request creation date . This is NOT the first day of the training, but the day on which you want the instances to be available to test them. Take a reasonable margin while being aware of the cost.</small></span>
 
-      
-
-  
         <span class="question">
         End date<span class="asterisk">*</span></span>
         <input type="date" name="endDate" required="required" min="{{startDate != undefined ? startDate : '0001-01-01' | date: 'yyyy-MM-dd'}}" ng-model="endDate"><br>
@@ -265,9 +262,9 @@
         </span>
       <p><br>
         <span id="kubernetes">
+          <br>
       <span class="question">
         Kubernetes (experimental)?<span class="asterisk">*</span></span>
-        <span class="radiosubtext"><small> NOT IMPLEMENTED YET - field is available here for when the feature is released </small></span><br><br>
         <span class="answers">
         <label class="radioButton">&nbsp;&nbsp;Yes
           <input type="radio" name="Kubernetes" value="Yes" required="required">
@@ -277,6 +274,7 @@
           <input type="radio" name="Kubernetes" value="No" checked="checked">
           <span class="ticked"></span>
         </label>
+        <span class="radiosubtext"><small> NOT IMPLEMENTED YET - field is available here for when the feature is released </small></span><br><br>
         </span>
         </span>
       </p>

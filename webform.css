@@ -21,7 +21,7 @@ h1 {
 
 .logo {
   float: left;  
-  display: inline-block;
+  /*display: inline-block;*/
   max-height: 20%;
   max-width: 20%;
   padding: 0% 5% 3% 0%;
@@ -29,6 +29,10 @@ h1 {
 
 .asterisk {
 	color: red;
+}
+
+body.waiting * {
+  cursor: progress;
 }
 
 .subtext {
@@ -90,17 +94,13 @@ h1 {
   word-wrap: break-word; 
 }
 
-.answers > .radioButton {
-/*width: 10%;*/
-
-}
 
 .checkquest {
   color: black;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 1.1em;
   padding: 0;
-  margin: 0;x
+  margin: 0;
 }
 
 .error {

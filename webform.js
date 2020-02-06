@@ -81,7 +81,14 @@ $("input[name='trainerEmail']").change(function() {
 
 
   $("#submit").on("click", function(e) {
-     //sets dateTime to submitted datetime for timestamp
+
+    //disables  submit button
+    $("#submit").attr("disabled", true);
+    
+    //sets cursor to waiting
+    $('body').addClass('waiting');
+
+    //sets dateTime to submitted datetime for timestamp
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -104,6 +111,11 @@ $("input[name='trainerEmail']").change(function() {
   if ($("input[name='platform']:checked").val() != "PartnerTraining") {
     $("input[name='partnerEmail']").val("");
   }
+
+  //changes orgname to lowercase
+  var lc = $('#customerOrgName').val().toLowerCase();
+  $('#customerOrgName').val(lc)
+
     
    //checks required fields are not empty and shows error message
   let valid = true;
@@ -156,6 +168,9 @@ $("input[name='trainerEmail']").change(function() {
       
  
 
+      
+      
+      
     
 
 
@@ -177,18 +192,19 @@ $("input[name='trainerEmail']").change(function() {
            // <a href="mailto:hello@hello.com?subject=Email Subject&body=Contents of email">hello@hello.com</a>
       
         //}
+
       var $form = $("form#requestForm"),
           url = "https://script.google.com/macros/s/AKfycbwo0JNckKfRpkSUOVGFuWTBH2LjWy4_OMtZXrVWi4VT4ZUcyio/exec";
           
           e.preventDefault();
-          $("#submit").attr("disabled", true);
           var jqxhr = $.ajax({
             url: url,
             method: "GET",
             dataType: "json",
             data: $form.serializeObject()
           }).done(function()
-          {window.location.href = 'success.html';});    
+          {$('body').removeClass('waiting');
+          window.location.href = 'success.html';});    
         
       
       })
