@@ -194,7 +194,7 @@ $("input[name='trainerEmail']").change(function() {
         //}
 
       var $form = $("form#requestForm"),
-          url = "https://script.google.com/macros/s/AKfycbwo0JNckKfRpkSUOVGFuWTBH2LjWy4_OMtZXrVWi4VT4ZUcyio/exec";
+          url = "https://script.google.com/macros/s/AKfycbwLFq4p9csbwNlurYf-SjoubfuztosaonJm3ykrkdLo0SZeGgE/exec";
           
           e.preventDefault();
           var jqxhr = $.ajax({
