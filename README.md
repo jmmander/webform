@@ -1,5 +1,5 @@
 # webform
-Data Science Studio Unofficial Platform Request Form
+Unofficial Platform Request Form
 
 This form is used to submit platform requests. This provides dynamic client-side data validation with angular along with robust server-side data validation and sanitization with jQuery.
 Data is currently written to the Google Sheets platform.
