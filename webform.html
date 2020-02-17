@@ -169,7 +169,7 @@
         <br><br>
         <span class="question">Number of studios<span class="asterisk">*</span>
         </span>
-        <input type="number" name="noStudios" ng-model="noStudios" min="1" max="30" required="required" placeholder='No studios'><br>
+        <input type="number" name="noStudios" ng-model="noStudios" min="1" max="50" required="required" placeholder='No studios'><br>
         <span class="error" id="noStudiosError" style="display: none">This is a required field<br></span>
         <span class="error" id="ngnoStudiosError" ng-show="requestForm.noStudios.$touched && requestForm.noStudios.$invalid">Please enter a valid number<br></span>
         <span class="subtext"><small> NUMERICAL VALUES ONLY. This is different from the number of users. If you request automation/API Nodes too, you will get one per design node. If this an admin training, number of studios is the number of trainees.</small></span>
