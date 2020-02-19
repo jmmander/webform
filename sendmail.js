@@ -1,44 +1,63 @@
-function sendMail(row){
+
+function get_instance_details(row) {  
   
-  var workbook= SpreadsheetApp.getActiveSpreadsheet();
-  var worksheet= workbook.getSheetByName("All");
-  
-  var values = worksheet.getRange(row, 1, row,20).getValues();
+  var values = SpreadsheetApp.getActiveSheet().getRange(row, 1,row,21).getValues();
   var rec = values[0];
   
-  var details = {
-    req_email: rec[1],
+  var instance = 
+      {
+        your_email: rec[1],
         im_email : rec[3],
-        trainer_eamil: rec[4],
-    cust_email: rec[5],
-  }
-  var emailInput = worksheet.getRange("B" + row).getValue() 
-  var IMinput = worksheet.getRange("D" + row).getValue();
-  var trainerInput = worksheet.getRange("E" + row).getValue();
-  var customerEmailInput = worksheet.getRange("F" + row).getValue();
-  var orgInput = worksheet.getRange("G" + row).getValue();
-  var kindInput = worksheet.getRange("H" + row).getValue();
-  var partnerInput = worksheet.getRange("I" + row).getValue();
-  var officeInput = worksheet.getRange("J" + row).getValue();
-  var locationInput = worksheet.getRange("K" + row).getValue();
-  var adminInput = worksheet.getRange("L" + row).getValue();
-  var noDSSInput = worksheet.getRange("M" + row).getValue();
-  var noUserInput = worksheet.getRange("N" + row).getValue();
-  var creationInput = worksheet.getRange("O" + row).getValue();
-  var lastDayInput = worksheet.getRange("P" + row).getValue();
-  var APIinput = worksheet.getRange("Q" + row).getValue();
-  var SSHinput = worksheet.getRange("R" + row).getValue();
-  var CDHinput = worksheet.getRange("S" + row).getValue();
-  var k8sinput = worksheet.getRange("T" + row).getValue();
+        trainer_email: rec[4],
+        customer_email: rec[5],
+        org_name : rec[6],
+        platform_type: rec[7],
+        partner_email: rec[8],
+        office : rec[9],
+        training_location: rec[10],
+        admin_training: rec[11],
+        no_studios : rec[12],
+        no_users_per_studio: rec[13],
+        creation_date : rec[14],
+        expiration_date : rec[15],
+        API: rec[16],
+        SSH: rec[17],
+        CDH : rec[18],
+        autodeploy: rec[20],
+      };
   
+  Logger.log(instance)
   
-  
- 
- var message = 
-  
-  MailApp.sendEmail(emailInput, "Your platform request for " + orgInput, {htmlBody: message})
-  Logger.log("sent email")
+   return instance;
 }
+ 
+
+
+function sendEmail(row, instance)
+{
+  var workbook= SpreadsheetApp.getActiveSpreadsheet();
+  var worksheet= workbook.getSheetByName("All");
+  var templ = HtmlService
+      .createTemplateFromFile('emailtemp');
+  
+  templ.instance = instance;
+  
+  var message = templ.evaluate().getContent();
+  Logger.log(message)
+  
+  MailApp.sendEmail({
+    to: instance.your_email,
+    subject: "Your new platform request for " + instance.org_name,
+    htmlBody: message
+    
+      });
+    
+    cell = "W" + row.toString()
+    Logger.log(cell)
+    worksheet.getRange(cell).setValue('sent'); 
+}
+
+
 
 function lastRow(){
   var workbook= SpreadsheetApp.getActiveSpreadsheet();
@@ -46,7 +65,7 @@ function lastRow(){
   var rangeData = worksheet.getDataRange();
   var lastCol = rangeData.getLastColumn();
   var lastRow = rangeData.getLastRow();
-  var searchRange = worksheet.getRange(2,21, lastRow-1, 22);
+  var searchRange = worksheet.getRange(2,22, lastRow-1, 23);
   var data = searchRange.getValues()
   Logger.log("data")
   Logger.log(data)
@@ -58,12 +77,13 @@ function lastRow(){
     } 
   Logger.log("rows = ")
   Logger.log(rows);
+  worksheet.getRange(row, 15).setNumberFormat('dd-mm-yyyy')
+  worksheet.getRange(row, 16).setNumberFormat('dd-mm-yyyy')
 
   rows.forEach(function(row){
-    sendMail(row);
-    cell = "V" + row.toString()
-    Logger.log(cell)
-    worksheet.getRange(cell).setValue('sent');
+    instance = get_instance_details(row)
+    sendEmail(row, instance)
+    
   })
-               }
+}
 
