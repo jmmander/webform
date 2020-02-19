@@ -6,6 +6,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-serialize-object/2.5.0/jquery.serialize-object.min.js"></script>
   <script src='https://momentjs.com/downloads/moment.js'></script>
+  <script src="https://apis.google.com/js/platform.js"></script>
 <script src="webform.js"></script>
 <link rel='stylesheet' type='text/css' href='webform.css'>
 <link rel="icon" href="birdtab.png">
@@ -279,7 +280,21 @@
         </span>
         </span>
       </p>
+      <br>
 
+      <span class="question">
+        Auto-deploy this instance<span class="asterisk">*</span></span>
+        <span class="answers">
+        <label class="radioButton">&nbsp;&nbsp;Yes
+          <input type="radio" name="autoDeploy" value="Yes" required="required" checked="checked">
+          <span class="ticked"></span>
+        </label>
+        <label class="radioButton">&nbsp;&nbsp;No
+          <input type="radio" name="autoDeploy" value="No" >
+          <span class="ticked"></span>
+        </label>
+        <span class="radiosubtext"><small> Almost all trainings are autodeployable. Only deselect if you know this instance will have to be manually created by an architect. </small></span><br><br>
+        </span>
       <p>
         <br><br><br>
         <label class="containerLeft">
@@ -289,7 +304,8 @@
         </label>
         <br>
         <p>
-<span class='additional'>If you have any additional requirements or requests please email the <a href="mailto:field-engineering-nonofficial@dataiku.com">Field Enginerring team</a>.</span>
+<span class='additional'>If you have any additional requirements, please email <a href="mailto:architects-amap@dataiku.com">
+  architects-amap@dataiku.com</a> for Americas and Asia-Pacific deployments, or <a href="mailto:architects-emea@dataiku.com">architects-emea@dataiku.com</a> for all others regions.</span>
     </p>
 </body>
   </form>

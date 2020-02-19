@@ -168,7 +168,16 @@ $("input[name='trainerEmail']").change(function() {
       
  
 
-      
+      //checks for unique org-name
+      gapi.client.sheets.spreadsheets.values.get({
+        spreadsheetId: "1_a-BHVncePGn1TZqBZnqOK1HzZlX3UnKexPCnvVURFw",
+        range: "All!O2:P5000"
+      }).then((response) => {
+        var result = response.result;
+        var numRows = result.values ? result.values.length : 0;
+        console.log(`${numRows} rows retrieved.`);
+        console.log(result)
+      });
       
       
     
@@ -204,7 +213,8 @@ $("input[name='trainerEmail']").change(function() {
             data: $form.serializeObject()
           }).done(function()
           {$('body').removeClass('waiting');
-          window.location.href = 'success.html';});    
+          //window.location.href = 'success.html';
+        });    
         
       
       })
