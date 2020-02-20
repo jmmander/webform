@@ -121,7 +121,8 @@ $("input[name='trainerEmail']").change(function() {
   let valid = true;
   $('[required]').each(function() {
     if ($(this).is(':invalid') || !$(this).val()) 
-    {valid = false;
+    {$('body').removeClass('waiting');
+    valid = false;
     var element = $(this).attr('name');
      if (element == "requestersEmail") 
         {$('#reqEmailError').show();}
@@ -161,24 +162,19 @@ $("input[name='trainerEmail']").change(function() {
       var duration = endDate.diff(startDate, 'days');
       if (validDate < 0 || validdate1 > 0) 
           {$("#startDateError").show();
+          $('body').removeClass('waiting');
           valid = false}
       if (duration < 2 || duration > 14)
-          {window.confirm("You have selected a duration of " + duration + " days. Please confirm this is correct.");}
+          {$('body').removeClass('waiting');
+          window.confirm("You have selected a duration of " + duration + " days. Please confirm this is correct.");
+        }
           
-      
- 
-
-      //checks for unique org-name
-      gapi.client.sheets.spreadsheets.values.get({
-        spreadsheetId: "1_a-BHVncePGn1TZqBZnqOK1HzZlX3UnKexPCnvVURFw",
-        range: "All!O2:P5000"
-      }).then((response) => {
-        var result = response.result;
-        var numRows = result.values ? result.values.length : 0;
-        console.log(`${numRows} rows retrieved.`);
-        console.log(result)
+    
+       
+      $.get("https://sheets.googleapis.com/v4/spreadsheets/1_a-BHVncePGn1TZqBZnqOK1HzZlX3UnKexPCnvVURFw/values/O2:P13&key=", function(data, status){
+        alert("Data: " + data + "\nStatus: " + status);
       });
-      
+
       
     
 
