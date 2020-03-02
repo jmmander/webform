@@ -166,12 +166,13 @@ $("input[name='trainerEmail']").change(function() {
           valid = false}
       else if (duration < 2 || duration > 14)
           {$('body').removeClass('waiting');
-          window.confirm("You have selected a duration of " + duration + " days. Please confirm this is correct.");
+          if (!window.confirm("You have selected a duration of " + duration + " days. Please confirm this is correct."))
+          {valid=false}
         }
           
     
         if (!valid) 
-        {alert("Please check all requried fields are filled in correctly");
+        {alert("Please check all fields are filled in correctly");
         $("#submit").attr("disabled", false);
         $('body').removeClass('waiting');
         return false;}   
