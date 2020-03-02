@@ -1,5 +1,6 @@
-
 $(document).ready(function() {
+  
+
   //date validation
   Date.prototype.yyyymmdd = function() {
     var mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based
@@ -121,8 +122,7 @@ $("input[name='trainerEmail']").change(function() {
   let valid = true;
   $('[required]').each(function() {
     if ($(this).is(':invalid') || !$(this).val()) 
-    {$('body').removeClass('waiting');
-    valid = false;
+    {valid = false;
     var element = $(this).attr('name');
      if (element == "requestersEmail") 
         {$('#reqEmailError').show();}
@@ -148,8 +148,9 @@ $("input[name='trainerEmail']").change(function() {
        {$("#startDateError").show();}
      if (element == 'endDate')
        {$("#EndDateError").show();}
-     }
-  });
+     };}
+  );
+  
         
       //date validation
       var start = $('input[name="startDate"]').val();
@@ -162,42 +163,26 @@ $("input[name='trainerEmail']").change(function() {
       var duration = endDate.diff(startDate, 'days');
       if (validDate < 0 || validdate1 > 0) 
           {$("#startDateError").show();
-          $('body').removeClass('waiting');
           valid = false}
-      if (duration < 2 || duration > 14)
+      else if (duration < 2 || duration > 14)
           {$('body').removeClass('waiting');
           window.confirm("You have selected a duration of " + duration + " days. Please confirm this is correct.");
         }
           
     
-       
-      $.get("https://sheets.googleapis.com/v4/spreadsheets/1_a-BHVncePGn1TZqBZnqOK1HzZlX3UnKexPCnvVURFw/values/O2:P13&key=", function(data, status){
-        alert("Data: " + data + "\nStatus: " + status);
-      });
-
+        if (!valid) 
+        {alert("Please check all requried fields are filled in correctly");
+        $("#submit").attr("disabled", false);
+        $('body').removeClass('waiting');
+        return false;}   
+        
       
     
 
 
 
-      //if (!valid) 
-       // {alert("Please ensure all required fields are filled in correctly");}
-      //e.preventDefault();
-      //e.stopPropagation();
-        //return false;}
-    //  else {
-        //sends copy of form if requested
-      //  if ($("#sendCopy").is(':checked')) {
-        //  var email = $('#requestersEmail').val();
-        //  var subject = "Your platform request for " + $('#customerOrgName').val();
-         // var body = "email: " + $('#requestersEmail').val() + 
-          //"\n IM email: " + $('#imEmail').val() +
-          //"\n trainer email: " + $('#trainerEmail').val() + 
-          //"\n customer email: " + $
-           // <a href="mailto:hello@hello.com?subject=Email Subject&body=Contents of email">hello@hello.com</a>
-      
-        //}
-
+     
+        //sends 
       var $form = $("form#requestForm"),
           url = "https://script.google.com/macros/s/AKfycbwLFq4p9csbwNlurYf-SjoubfuztosaonJm3ykrkdLo0SZeGgE/exec";
           
@@ -207,9 +192,8 @@ $("input[name='trainerEmail']").change(function() {
             method: "GET",
             dataType: "json",
             data: $form.serializeObject()
-          }).done(function()
-          {$('body').removeClass('waiting');
-          //window.location.href = 'success.html';
+          }).success(function()
+          {window.location.href = 'success.html';
         });    
         
       
