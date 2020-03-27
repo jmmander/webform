@@ -109,6 +109,7 @@ $("input[name='trainerEmail']").change(function() {
         column_values = dataFrame.getColumnValues("Organization");
         console.log(column_values);
         if (column_values.includes(trainingName))
+            {
             $("#submit").css('background-color', 'rgb(255, 141, 141)')
             alert("The orgainzation name you have selected is already in use for the selected period. Please choose another name and try again");
             }
@@ -130,7 +131,7 @@ $("input[name='trainerEmail']").change(function() {
 //when submit is pressed...
   $("#submit").on("click", function(e) {
     console.log($("#submit").css('background-color'))
-    if ($("#submit").css('background-color') == 'rgb(255, 141, 141)')
+    if ($("#submit").css('background-color') != 'rgb(192, 241, 239)')
       {alert("Please check the org name and try again");
       return false;}
       
