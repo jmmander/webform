@@ -430,10 +430,27 @@ input[type="number"]:required:valid {
 }
 
 
+#checkName {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #FFFACD;
+  border: 2px solid grey;
+  color: black;
+  text-align: center;
+  font-size: 0.9em;
+  padding: 8px;
+  width: 10%;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-left: 25%;
+  margin-top:15px;
+}
+
+
 .button {
   display: inline-block;
   border-radius: 4px;
-  background-color: #c0f1ef;
+  background-color: #FFFACD;
   border: 2px solid grey;
   color: black;
   text-align: center;
@@ -444,6 +461,22 @@ input[type="number"]:required:valid {
   cursor: pointer;
   margin: 5px;
 }
+
+.button:disabled {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #DCDCDC;
+  border: 2px solid grey;
+  color: black;
+  text-align: center;
+  font-size: 1.1em;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
 
 .button span {
   cursor: pointer;
