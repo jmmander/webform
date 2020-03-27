@@ -1,7 +1,7 @@
 $(document).ready(function() {
   
 
-  //date validation
+  //gets today's date and formats it 
   Date.prototype.yyyymmdd = function() {
     var mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based
     var dd = this.getDate().toString();
@@ -76,13 +76,64 @@ $("input[name='trainerEmail']").change(function() {
     if (validEmail(email))
       {$(this).css('border', '2px solid #28b1ab');}
   }});
+    
+  function epochDate(date){
+      var listDate = date.split('-');
+      listDate = (listDate.reverse());
+      var timestamp = new Date(listDate[0], (listDate[1] - 1), listDate[2], 0, 0,0,0).getTime()/1000;
+      console.log("here")
+      console.log(timestamp)
+      return timestamp
+ 
+  }
+    
+//reads dataset and checks training names over period
+   
+    $("#checkName").on("click", function(e) {
+       var trainingName = $('#customerOrgName').val().toLowerCase();
+       var start = $('input[name="startDate"]').val();
+       var end = $('input[name="endDate"]').val(); //not needed
+
+       if (!trainingName)
+           {alert("Please enter a name and try again")}
+       else if (!start || !end)
+           {alert("Please enter a start and end date for the training and try again")}
+       else
+       {
+        var epochStart = epochDate(start)
+        var epochEnd = epochDate(end) 
+        //creates a string that is then ingested by DSS and used to return training names during the requested period + 1week
+        filtering = "endPlusWeek > " + String(epochStart)
+        dataiku.fetch('test_with_dates_prepared', {filter : filtering },
+        function(dataFrame) {
+        column_values = dataFrame.getColumnValues("Organization");
+        console.log(column_values);
+        if (column_values.includes(trainingName))
+            $("#submit").css('background-color', 'rgb(255, 141, 141)')
+            alert("The orgainzation name you have selected is already in use for the selected period. Please choose another name and try again");
+            }
+       else
+           {alert("The organization is unique and may be used!")
+           $("#submit").css('background-color','c0f1ef');
+           $("#checkName").css('background-color','c0f1ef');
+           $("#checkName").html('Re-check name');}
+        
+        })
+    }});
+    
+      
+    
 
 
 
 
-
+//when submit is pressed...
   $("#submit").on("click", function(e) {
-
+    console.log($("#submit").css('background-color'))
+    if ($("#submit").css('background-color') == 'rgb(255, 141, 141)')
+      {alert("Please check the org name and try again");
+      return false;}
+      
     //disables  submit button
     $("#submit").attr("disabled", true);
     
@@ -101,7 +152,7 @@ $("input[name='trainerEmail']").change(function() {
   if ($("#implementationManager").is(':checked')) {
       $('#imEmail').val($('#requestersEmail').val()); 
     };
-    //overwrites values for admin training
+//overwrites values for admin training
   if (($("input[name='adminTraining']:checked").val() == 'Yes')) {
     $('input[name="API"]')[0].checked = true;
     $('input[name="SSH"]')[0].checked = true;
@@ -118,7 +169,7 @@ $("input[name='trainerEmail']").change(function() {
   $('#customerOrgName').val(lc)
 
     
-   //checks required fields are not empty and shows error message
+   //Validates required fields and shows error message
   let valid = true;
   $('[required]').each(function() {
     if ($(this).is(':invalid') || !$(this).val()) 
@@ -170,22 +221,22 @@ $("input[name='trainerEmail']").change(function() {
           {valid=false}
         }
           
-    
+      
+     
+        
         if (!valid) 
-        {alert("Please check all fields are filled in correctly");
+        {alert("Please check all fields are filled in correctly and try again");
         $("#submit").attr("disabled", false);
         $('body').removeClass('waiting');
         return false;}   
-        
-      
-    
+             
 
 
 
      
-        //sends 
-      var $form = $("form#requestForm"),
-          url = "https://script.google.com/macros/s/AKfycbwLFq4p9csbwNlurYf-SjoubfuztosaonJm3ykrkdLo0SZeGgE/exec";
+        //sends data to google spreadsheet. mostly copypasta
+     var $form = $("form#requestForm"),
+          url = "https://script.google.com/macros/s/AKfycbx31MZOkwfNhbGVxc0x_O8h9RSk59pcyvQiJifMu6JTQCc2twDh/exec";
           
           e.preventDefault();
           var jqxhr = $.ajax({
@@ -193,10 +244,17 @@ $("input[name='trainerEmail']").change(function() {
             method: "GET",
             dataType: "json",
             data: $form.serializeObject()
-          }).success(function()
-          {window.location.href = 'success.html';
+          }).done(function()
+          {alert("Your request has been successfully submitted!");
+           $('body').removeClass('waiting');
+           location.reload();
+           
         });    
-        
-      
-      })
     });
+});
+
+
+
+
+
+
