@@ -79,8 +79,9 @@ $("input[name='trainerEmail']").change(function() {
     
   function epochDate(date){
       var listDate = date.split('-');
-      listDate = (listDate.reverse());
-      var timestamp = new Date(listDate[0], (listDate[1] - 1), listDate[2], 0, 0,0,0).getTime()/1000;
+      console.log(listDate)
+      var typeDate = new Date(listDate[0], (listDate[1] - 1), [listDate[2]]);
+      timestamp = typeDate.getTime() /1000
       console.log("here")
       console.log(timestamp)
       return timestamp
@@ -93,6 +94,7 @@ $("input[name='trainerEmail']").change(function() {
        var trainingName = $('#customerOrgName').val().toLowerCase();
        var start = $('input[name="startDate"]').val();
        var end = $('input[name="endDate"]').val(); //not needed
+       var now = Math.round((new Date()).getTime() / 1000);
 
        if (!trainingName)
            {alert("Please enter a name and try again")}
@@ -103,25 +105,26 @@ $("input[name='trainerEmail']").change(function() {
         var epochStart = epochDate(start)
         var epochEnd = epochDate(end) 
         //creates a string that is then ingested by DSS and used to return training names during the requested period + 1week
-        filtering = "endPlusWeek > " + String(epochStart)
+        var filtering = "endPlusWeek > " + String(epochStart); 
+        console.log(filtering);
         dataiku.fetch('test_with_dates_prepared', {filter : filtering },
         function(dataFrame) {
+        console.log(dataFrame)
         column_values = dataFrame.getColumnValues("Organization");
         console.log(column_values);
-        if (column_values.includes(trainingName))
-            {
-            $("#submit").css('background-color', 'rgb(255, 141, 141)')
+        if (column_values.includes(trainingName)){
+            $("#submit").css('background-color', 'rgb(255, 141, 141)');
             alert("The orgainzation name you have selected is already in use for the selected period. Please choose another name and try again");
-            }
+        }
        else
-           {alert("The organization is unique and may be used!")
+       {alert("The organization is unique and may be used!");
            $("#submit").css('background-color','c0f1ef');
            $("#checkName").css('background-color','c0f1ef');
            $("#checkName").html('Re-check name');}
         
-        })
-    }});
-    
+           
+    })
+       }});
       
     
 
@@ -237,7 +240,7 @@ $("input[name='trainerEmail']").change(function() {
      
         //sends data to google spreadsheet. mostly copypasta
      var $form = $("form#requestForm"),
-          url = "https://script.google.com/macros/s/AKfycbx31MZOkwfNhbGVxc0x_O8h9RSk59pcyvQiJifMu6JTQCc2twDh/exec";
+          url = #INSERT URL HERE
           
           e.preventDefault();
           var jqxhr = $.ajax({
