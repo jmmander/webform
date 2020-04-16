@@ -19,8 +19,8 @@ $(document).ready(function() {
 
   var date = new Date();
   var minDate = date.yyyymmdd();
-  $('input[name="startDate"]').prop("min", minDate);
-  $('input[name="endDate"]').prop("min", minDate);
+  $('input[name="Creation"]').prop("min", minDate);
+  $('input[name="LastDay"]').prop("min", minDate);
 
   //hides IM email if I am the IM is checked and sets IM email
   $("#implementationManager").change(function() {
@@ -29,31 +29,31 @@ $(document).ready(function() {
       $('#imEmail').val($('#requestersEmail').val());
     } else {
       $("#IMconditional").show(300);
-	  $("#IMconditional").css("display", "block");
+	  $("#IMconditional").css("display", "inline-block");
     }
   });
   
   
   //Shows partner training if partner training checked
-  $("input[name='platform']").change(function() {
+  $("input[name='Kind']").change(function() {
     if (this.id == "PartnerTraining") {
       $("#partnerconditional").show(300);
 	  $("#partnerconditional").css("display", "block");
-      $("input[name='partnerEmail']").prop("required", true);
+      $("input[name='Partner']").prop("required", true);
     } else {
       $("#partnerconditional").hide(300);
-      $("input[name='partnerEmail']").removeAttr("required");
-      $("input[name='partnerEmail']").val("");}
+      $("input[name='Partner']").removeAttr("required");
+      $("input[name='Partner']").val("");}
     });
   
 
   //hides and sets SSH, automation and hadoop if admin training selected
-  $("input[name='adminTraining']").change(function() {
+  $("input[name='Admin']").change(function() {
     if (this.id == "yes") {
       $(".adminconditional").hide(300);
       $('input[name="API"]')[0].checked = true;
       $('input[name="SSH"]')[0].checked = true;
-      $('input[name="Hadoop"]')[0].checked = true;
+      $('input[name="CDH"]')[0].checked = true;
     } else {
       $(".adminconditional").show(300);
 	  $("#adminconditional").css("display", "block");
@@ -62,7 +62,7 @@ $(document).ready(function() {
 
   //hides kubernetes and sets response to false
   $("#kubernetes").hide();
-  $('input[name="Kubernetes"]')[1].checked = true;
+  $('input[name="k8s"]')[1].checked = true;
  
  
   function validEmail(email) {
@@ -70,7 +70,7 @@ $(document).ready(function() {
     return re.test(email);
   } 
   
-$("input[name='trainerEmail']").change(function() {
+$("input[name='Trainer']").change(function() {
   if ($(this) != ""){
     var email = ($(this).val());
     if (validEmail(email))
@@ -92,8 +92,8 @@ $("input[name='trainerEmail']").change(function() {
    
     $("#checkName").on("click", function(e) {
        var trainingName = $('#customerOrgName').val().toLowerCase();
-       var start = $('input[name="startDate"]').val();
-       var end = $('input[name="endDate"]').val(); //not needed
+       var start = $('input[name="Creation"]').val();
+       var end = $('input[name="LastDay"]').val(); //not needed
        var now = Math.round((new Date()).getTime() / 1000);
 
        if (!trainingName)
@@ -149,7 +149,7 @@ $("input[name='trainerEmail']").change(function() {
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
-    $('input[name="dateTime"]').val(dateTime);
+    $('input[name="X"]').val(dateTime);
     //server side data validation
     
 //sets IM to requesterEmail if not already set
@@ -157,15 +157,15 @@ $("input[name='trainerEmail']").change(function() {
       $('#imEmail').val($('#requestersEmail').val()); 
     };
 //overwrites values for admin training
-  if (($("input[name='adminTraining']:checked").val() == 'Yes')) {
+  if (($("input[name='Admin']:checked").val() == 'Yes')) {
     $('input[name="API"]')[0].checked = true;
     $('input[name="SSH"]')[0].checked = true;
-    $('input[name="Hadoop"]')[0].checked = true;
+    $('input[name="CDH"]')[0].checked = true;
     $('#usersPerStudio').val('1');
   };
   //sets partner email to empty if not a partner training
-  if ($("input[name='platform']:checked").val() != "PartnerTraining") {
-    $("input[name='partnerEmail']").val("");
+  if ($("input[name='Kind']:checked").val() != "PartnerTraining") {
+    $("input[name='Partner']").val("");
   }
 
   //changes orgname to lowercase
@@ -179,37 +179,37 @@ $("input[name='trainerEmail']").change(function() {
     if ($(this).is(':invalid') || !$(this).val()) 
     {valid = false;
     var element = $(this).attr('name');
-     if (element == "requestersEmail") 
+     if (element == "Email") 
         {$('#reqEmailError').show();}
-     if (element == 'imEmail')
+     if (element == 'IM')
        {$('#imEmailError').show();}
-     if (element == 'customerEmail')
+     if (element == 'Customer')
        {$('#custEmailError').show();}
-     if (element == 'customerOrgName')
+     if (element == 'Org')
        {$('#orgNameError').show();}
-     if (element == 'platform') 
+     if (element == 'Kind') 
       {$("#platformError").show();}
-     if (element == 'partnerEmail') 
+     if (element == 'Partner') 
       {$("#partnerEmailError").show();}
-     if (element == 'office')
+     if (element == 'Office')
        {$("#officeError").show();}
-     if (element == 'trainingLocation')
+     if (element == 'Location')
        {$("#trainingLocationError").show();}
-     if (element == 'adminTraining')
+     if (element == 'Admin')
        {$("#adminError").show();}
-     if (element == 'noStudios')
+     if (element == 'noDSS')
        {$("#noStudiosError").show();}
-     if (element == 'startDate')
+     if (element == 'Creation')
        {$("#startDateError").show();}
-     if (element == 'endDate')
+     if (element == 'LastDay')
        {$("#EndDateError").show();}
      };}
   );
   
         
       //date validation
-      var start = $('input[name="startDate"]').val();
-      var end = $('input[name="endDate"]').val();
+      var start = $('input[name="Creation"]').val();
+      var end = $('input[name="LastDay"]').val();
       var startDate = moment(start);
       var endDate = moment(end);
       var todayDate = moment(date);
@@ -240,16 +240,18 @@ $("input[name='trainerEmail']").change(function() {
      
         //sends data to google spreadsheet. mostly copypasta
      var $form = $("form#requestForm"),
-          url = #INSERT URL HERE
+          url = "https://script.google.com/macros/s/AKfycbzpE_tR6y0aAfWOMhBDAuYa8IdaYqYkhhm8gbU49D1Rvejd97Tc/exec";
           
           e.preventDefault();
+          var data = $form.serializeObject()
           var jqxhr = $.ajax({
             url: url,
             method: "GET",
             dataType: "json",
-            data: $form.serializeObject()
+            data: data
           }).done(function()
           {alert("Your request has been successfully submitted!");
+           console.log($form.serializeObject());
            $('body').removeClass('waiting');
            location.reload();
            
