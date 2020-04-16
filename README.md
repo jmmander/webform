@@ -15,9 +15,8 @@ Data is currently written to the Google Sheets platform.
 
 5. If the header row of your googlesheet is not row 2, open the google apps script and find the variable declarations for headRow and headers, replace the rowNo with your header row number as follows: 
 
-  var headRow = e.parameter.header_row || rowNo;
-  
-  var headers = sheet.getRange(rowNo, 1, 1, sheet.getLastColumn()).getValues()[0];
+  > var headRow = e.parameter.header_row || rowNo;
+  > var headers = sheet.getRange(rowNo, 1, 1, sheet.getLastColumn()).getValues()[0];
   
 5. In the google sheets google script editor, create two new files, sendemail.gs and emailtemp.html. Copy and paste the code from these files to your google script files.
 
