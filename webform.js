@@ -240,7 +240,7 @@ $("input[name='Trainer']").change(function() {
      
         //sends data to google spreadsheet. mostly copypasta
      var $form = $("form#requestForm"),
-          url = "https://script.google.com/macros/s/AKfycbzpE_tR6y0aAfWOMhBDAuYa8IdaYqYkhhm8gbU49D1Rvejd97Tc/exec";
+          url = #INSERT URL HERE
           
           e.preventDefault();
           var data = $form.serializeObject()
