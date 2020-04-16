@@ -35,23 +35,34 @@ function get_instance_details(row) {
 
 function sendEmail(row, instance)
 {
+  var subject = "Your new platform request for " + instance.org_name
+  var myAliases = GmailApp.getAliases();
   var workbook= SpreadsheetApp.getActiveSpreadsheet();
   var worksheet= workbook.getSheetByName("All");
-  var templ = HtmlService
-      .createTemplateFromFile('emailtemp');
-  
+  var templ = HtmlService.createTemplateFromFile('emailtemp');
+
   templ.instance = instance;
-  
-  var message = templ.evaluate().getContent();
+  Logger.log("instance")
+  Logger.log(instance)
+  var subject = "Your new platform request for " + instance.org_name;
+  var mess = templ.evaluate()
+  Logger.log('mess')
+  Logger.log(mess)
+  var message = mess.getContent();
+  Logger.log('message')
   Logger.log(message)
   
-  MailApp.sendEmail({
-    to: instance.your_email,
-    subject: "Your new platform request for " + instance.org_name,
-    htmlBody: message
-    
-      });
-    
+  
+  GmailApp.sendEmail(
+    instance.your_email,         // recipient
+    subject,                 // subject 
+    'test', {                        // body
+      from: myAliases[0],
+      replyTo: myAliases[0],
+      htmlBody: message                 // advanced options
+    }
+  ); 
+
     cell = "W" + row.toString()
     Logger.log(cell)
     worksheet.getRange(cell).setValue('sent'); 
@@ -65,20 +76,20 @@ function lastRow(){
   var rangeData = worksheet.getDataRange();
   var lastCol = rangeData.getLastColumn();
   var lastRow = rangeData.getLastRow();
-  var searchRange = worksheet.getRange(2,22, lastRow-1, 23);
+  var searchRange = worksheet.getRange(3,22, lastRow-1, 23);
   var data = searchRange.getValues()
   Logger.log("data")
   Logger.log(data)
   var rows = []
   for (var row = 0; row < data.length; row++)
-    if(data[row][0] == "yes" && data[row][1] == "undefined") {
+    if(data[row][0] == "yes" && data[row][1] != "sent") {
       var row_no = row + 2;
       rows.push(row_no);
     } 
   Logger.log("rows = ")
   Logger.log(rows);
-  worksheet.getRange(row, 15).setNumberFormat('dd-mm-yyyy')
-  worksheet.getRange(row, 16).setNumberFormat('dd-mm-yyyy')
+  worksheet.getRange(row, 14).setNumberFormat('mm-dd-yyyy')
+  worksheet.getRange(row, 15).setNumberFormat('mm-dd-yyyy')
 
   rows.forEach(function(row){
     instance = get_instance_details(row)
@@ -86,4 +97,3 @@ function lastRow(){
     
   })
 }
-
