@@ -1,4 +1,4 @@
-# webform
+# Webform
 Unofficial Platform Request Form
 
 This form is used to submit platform requests. This provides dynamic client-side data validation with angular along with robust server-side data validation and sanitization with jQuery.
@@ -23,9 +23,7 @@ Data is currently written to the Google Sheets platform.
 6. In the google script editor create a timedriven trigger on lastrow to run every minute.
 
 
-
-
-
+# LICENCE
 Copyright 2019 Jacqueline Mander
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
