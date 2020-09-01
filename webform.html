@@ -7,11 +7,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-serialize-object/2.5.0/jquery.serialize-object.min.js"></script>
   <script src='https://momentjs.com/downloads/moment.js'></script>
   <script src="https://apis.google.com/js/platform.js"></script>
+  <link rel="stylesheet" type="text/css" href="webform.css">
 
 <div class= 'formCont'>
-<img class ='logo' src="https://i.imgur.com/DsiO9qc.png" alt="Dataiku logo">
-  <h1> DSS Platform requests</h1>
-  <span class="headSubtext"> <small> This form is dedicated for requesting training clusters to the Field Engineering team. Training clusters should only be requested for a few days and are NOT suited for PoC or other long running usages. For those, please contact the <a href="mailto:field-engineering-nonofficial@dataiku.com">Field Enginerring team</a>.
+  <nav class=navbar>
+<img class ='logo' src="logo.png" alt=" logo">
+  <h1> Smart request form</h1>
+  </nav>
+  <span class="headSubtext"> <small> This form is dedicated request form. In case of issues, please contact  <a href="mailto:jmzmander.com">Jacqueline Mander</a>.
         <br>
         <br>
         * indicates required field
@@ -20,20 +23,18 @@
 <p>
   <form id="requestForm" name="requestForm" class='formContainer' method="post" >
     <body ng-app="">
-     <!--  <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
-      <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>-->
       <span class="hidden">
       <input type="text" id="dateTime" name="X">
       </span>
       <span class="question">Your Email<span class="asterisk">*</span></span>
-      <input type="email" id="requestersEmail" name="Email" ng-model="requestersEmail" placeholder="myemail@dataiku.com" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+      <input type="email" id="requestersEmail" name="Email" ng-model="requestersEmail" placeholder="myemail@company.com" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
       <br>
       <span class="error" id='ngreqEmailError' ng-show="requestForm.requestersEmail.$invalid && requestForm.requestersEmail.$touched">Please enter a valid email<br></span>
       <span class="error" id='reqEmailError' style="display: none">This is a required field</span>
       <p>
         <label class="container">
         <input type="checkbox" id="implementationManager" name="implementationManager" value="yes"  />
-        <span class="checkquest">I am the Implementation Manager</span>
+        <span class="checkquest">I am the manager</span>
         <span class="checkmark"></span>
         <br>
       </label>
@@ -42,22 +43,22 @@
       <p>
         <br>
         <span id="IMconditional">
-        <span class="question">IM Email<span class="asterisk">*</span></span>
-        <input type="email" name="IM" id="imEmail" ng-model="imEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" placeholder="IMemail@dataiku.com" />
+        <span class="question">Manager Email<span class="asterisk">*</span></span>
+        <input type="email" name="IM" id="imEmail" ng-model="imEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" placeholder="manager@company.com" />
         <br>
         <span class="error" id='ngimEmailError' ng-show="requestForm.imEmail.$invalid && requestForm.imEmail.$touched">Please enter a valid email<br></span>
                   <span class="error" id='imEmailError' style="display: none">This is a required field<br></span>
-        <span class="subtext"><small>The email address of the implementation manager responsible for this training</small></span>
+        <span class="subtext"><small>The email address of the manager responsible</small></span>
         </span>
       </p>
 
       <p>
         <span class="question">
-        Trainer Email</span>
-        <input type="email" name="Trainer" id='trainerEmail' ng-model="trainerEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="traineremail@dataiku.com" />
+        Teacher Email</span>
+        <input type="email" name="Trainer" id='trainerEmail' ng-model="trainerEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="teacher@comapny.com" />
         <br>
         <span class="error" id='trainerEmailError'ng-show="requestForm.trainerEmail.$touched && requestForm.trainerEmail.$invalid">Please enter a valid email<br></span>
-        <span class="subtext"> <small> The email address of the trainer that will teach the customer.</small></span>
+        <span class="subtext"> <small> The email address of the Teacher.</small></span>
       </p>
 
       <p>
@@ -67,47 +68,47 @@
         <br>
         <span class="error" id='custEmailError' style="display: none">This is a required field<br></span>
                 <span class="error" id='ngcustEmailError' ng-show="requestForm.customerEmail.$touched && requestForm.customerEmail.$invalid">Please enter a valid email<br></span>
-        <span class="subtext"> <small> This must be the email of the user registered in the license database.</small></span>
+        <span class="subtext"> <small> This must be the email of the user registered.</small></span>
       </p>
       <p>
         <span class="question">
         Start date<span class="asterisk">*</span></span>
         <input type="date" ng-model="startDate" name="Creation" required="required">
         <br> <span class="error" id="startDateError" style="display: none">Please enter a valid date<br></span>
-        <span class="datesubtext"> <small> Delivery date - MUST be at least 7 days after the request creation date . This is NOT the first day of the training, but the day on which you want the instances to be available to test them. Take a reasonable margin while being aware of the cost.</small></span>
+        <span class="datesubtext"> <small> The day you want it to begin.</small></span>
 
         <span class="question">
         End date<span class="asterisk">*</span></span>
         <input type="date" name="LastDay" required="required" min="{{startDate != undefined ? startDate : '0001-01-01' | date: 'yyyy-MM-dd'}}" ng-model="endDate"><br>
         <span class="error" id="endDateEarlyError" ng-show="requestForm.startDate.$dirty && requestForm.endDate.$dirty && requestForm.endDate.$invalid"> The end date must come after the start date<br></span>         <span class="error" id="EndDateError" style="display: none">Please enter a valid date<br></span>
-        <span class="datesubtext"><small> This is the last day on which the instances will be available. They will be entirely deleted the day AFTER.</small></span>
+        <span class="datesubtext"><small> This is the last day.</small></span>
       </p>
       <p>
         <span class="question">
         Organization Name<span class="asterisk">*</span></span>
         <input type="text" name="Org"  id="customerOrgName" ng-model="customerOrgName" pattern="([A-Za-z0-9\-]+)" maxlength="15" required="required" placeholder="Org-name"  style="text-transform: lowercase"/>
-          <button class="button" id='checkName' name='checkName' >Check name</button>
+          
           <br>
         <span class="error" id='ngorgNameError' ng-show="requestForm.customerOrgName.$touched && requestForm.customerOrgName.$invalid">Alphanumeric and "-" only. No spaces. No more than 15 chars.<br></span>
         <span class="error" id='orgNameError' style="display: none">This is a required field<br></span>
         <span class="error" id='inUseError' style="display: none">This is a required field<br></span>
-        <span class="subtext"> <small> Unique group identifier for whom the training is intended. Alphanumeric and "-" only. No more than 15 chars. Only lowercase accepted.</small></span>
+        <span class="subtext"> <small> Alphanumeric and "-" only. No more than 15 chars. Only lowercase accepted.</small></span>
       </p>
 
       <p>
         <span class="question">
         Kind of platform<span class="asterisk">*</span> </span>
         <span class="answers">
-        <label class="radioButton"> &nbsp;&nbsp;Training
-          <input type="radio" name="Kind" value="Training" required="required">
+        <label class="radioButton"> &nbsp;&nbsp;A
+          <input type="radio" name="Kind" value="A" required="required">
           <span class="ticked"></span>
         </label>
-        <label class="radioButton">&nbsp;&nbsp;Partner Training
-		<input type="radio" name="Kind" value="PartnerTraining" id="PartnerTraining" ng-model="partnerTraining">
+        <label class="radioButton">&nbsp;&nbsp;B
+		<input type="radio" name="Kind" value="B" id="B" ng-model="B">
           <span class="ticked"></span>
         </label>
-        <label class="radioButton">&nbsp;&nbsp;Demo
-          <input type="radio" name="Kind" value="Demo">
+        <label class="radioButton">&nbsp;&nbsp;C
+          <input type="radio" name="Kind" value="C">
           <span class="ticked"></span>
         </label>
       </span>
@@ -131,11 +132,11 @@
         Your office location<span class="asterisk">*</span></span><br>
         <select required="required" name="Office">
         <option value="" disabled selected hidden>- Please select -</option>
-        <option value="NY/USA"> NY / USA</option>
-        <option value="London"> London</option>
-        <option value="Paris/Eu"> Paris / Europe</option>
-        <option value="Singapore"> Singapore</option>
-        <option value="Sydney/Aus"> Sydney / Aus</option>
+        <option value="USA"> USA</option>
+        <option value="UK"> UK</option>
+        <option value="EU"> Europe</option>
+        <option value="Asia"> Asia</option>
+        <option value="Australia"> Australia</option>
         <option value="Other"> Other</option>
       </select>
       <br>
@@ -148,14 +149,12 @@
         Training location<span class="asterisk">*</span></span><br>
         <select required="required" name="Location">
         <option value="" disabled selected hidden>- Please select -</option>
-        <option value="Paris"> Paris</option>
-        <option value="London"> London</option>
+        <option value="EU"> Europe</option>
+        <option value="UK"> UK</option>
         <option value="NorthAmericaEast"> North America East</option>
         <option value="NorthAmericaWest"> North America West</option>
-        <option value="Frankfurt"> Frankfurt</option>
-        <option value="Dublin"> Dublin</option>
-        <option value="Sydney"> Sydney</option>
-        <option value="Singapore"> Singapore</option>
+        <option value="Aus"> Australia</option>
+        <option value="Asia"> Asis</option>
       </select>
       <br>
         <span class="error" id='trainingLocationError' style="display: none">Please select a location<br></span>
@@ -164,7 +163,7 @@
       <p>
         <br>
         <span class="question">
-        Admin training?<span class="asterisk">*</span></span>
+        Special?<span class="asterisk">*</span></span>
         <span class="answers">
         <label class="radioButton">&nbsp;&nbsp;Yes
           <input type="radio" name="Admin" value="Yes" id="yes" required="required">
@@ -173,21 +172,21 @@
         <label class="radioButton">&nbsp;&nbsp;No
           <input type="radio" name="Admin" value="No" id="no" >
           <span class="ticked"></span>
-        </label>
-          <span class="radiosubtext"> <small> Admin trainings are run by architects.</small></span>
+        </label> 
+          <span class="radiosubtext"> <small> This is only for special people.</small></span>
         </span>
         <br>
         <span class="error" id='adminError' style="display: none">Please select an option<br></span>
       </p>
 
       <p>
-        <br><br>
+        <br>
         <span class="question">Number of studios<span class="asterisk">*</span>
         </span>
         <input type="number" name="noDSS" ng-model="noStudios" min="1" max="50" required="required" placeholder='No studios'><br>
         <span class="error" id="noStudiosError" style="display: none">This is a required field<br></span>
         <span class="error" id="ngnoStudiosError" ng-show="requestForm.noStudios.$touched && requestForm.noStudios.$invalid">Please enter a valid number<br></span>
-        <span class="subtext"><small> NUMERICAL VALUES ONLY. This is different from the number of users. If you request automation/API Nodes too, you will get one per design node. If this an admin training, number of studios is the number of trainees.</small></span>
+        <span class="subtext"><small> NUMERICAL VALUES ONLY</small></span>
         
                 
         
@@ -195,7 +194,7 @@
       <span class="adminconditional">
       <p><br>
       <span class="question">
-        Users per studio<span class="asterisk">*</span></span>
+        Users<span class="asterisk">*</span></span>
         <select required="required" name="noUSR" id="usersPerStudio">
         <option value="" disabled selected hidden>- Please select -</option>
         <option value="1" selected> 1</option>
@@ -217,7 +216,7 @@
       <p>
         <br>
       <span class="question">
-        SSH access?<span class="asterisk">*</span></span>
+        SSH?<span class="asterisk">*</span></span>
         <span class="answers">
         <label class="radioButton">&nbsp;&nbsp;Yes
           <input type="radio" name="SSH" value="Yes" checked="checked">
@@ -236,7 +235,7 @@
       <p>
         <br>
       <span class="question">
-        Automation/API?<span class="asterisk">*</span></span>
+        API?<span class="asterisk">*</span></span>
         <span class="answers">
         <label class="radioButton">&nbsp;&nbsp;Yes
           <input type="radio" name="API" value="Yes"> <span class="ticked"></span></label>
@@ -270,7 +269,7 @@
         <span id="kubernetes">
           <br>
       <span class="question">
-        Kubernetes (experimental)?<span class="asterisk">*</span></span>
+        Kubernetes?<span class="asterisk">*</span></span>
         <span class="answers">
         <label class="radioButton">&nbsp;&nbsp;Yes
           <input type="radio" name="k8s" value="Yes" required="required">
@@ -287,7 +286,7 @@
       <br>
 
       <span class="question">
-        Auto-deploy this instance<span class="asterisk">*</span></span>
+        Automatic?<span class="asterisk">*</span></span>
         <span class="answers">
         <label class="radioButton">&nbsp;&nbsp;Yes
           <input type="radio" name="Other" value="auto-deploy" required="required" checked="checked">
@@ -297,7 +296,7 @@
           <input type="radio" name="Other" value="opt-out" >
           <span class="ticked"></span>
         </label>
-        <span class="radiosubtext"><small> Almost all trainings are autodeployable. Only deselect if you know this instance will have to be manually created by an architect. </small></span><br><br>
+        <br><br>
         </span>
       <p>
         <br><br><br>
@@ -307,10 +306,6 @@
           <span class="checkmark"></span>
         </label>
         <br>
-        <p>
-<span class='additional'>If you have any additional requirements, please email <a href="mailto:architects-amap@dataiku.com">
-  architects-amap@dataiku.com</a> for Americas and Asia-Pacific deployments, or <a href="mailto:architects-emea@dataiku.com">architects-emea@dataiku.com</a> for all others regions.</span>
-    </p>
 </body>
   </form>
   <p>
@@ -319,4 +314,5 @@
     <br><br><br>
   </p>
   </div>
+  <script src="webform.js"></script>
 </html>
