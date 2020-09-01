@@ -74,7 +74,7 @@ $("input[name='Trainer']").change(function() {
   if ($(this) != ""){
     var email = ($(this).val());
     if (validEmail(email))
-      {$(this).css('border', '2px solid #28b1ab');}
+      {$(this).css('border', '2px solid #2764aa');}
   }});
     
   function epochDate(date){
@@ -240,7 +240,7 @@ $("input[name='Trainer']").change(function() {
      
         //sends data to google spreadsheet. mostly copypasta
      var $form = $("form#requestForm"),
-          url = #INSERT URL HERE
+          url = ""//INSERT URL HERE
           
           e.preventDefault();
           var data = $form.serializeObject()
