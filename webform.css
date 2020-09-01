@@ -6,9 +6,13 @@
   padding: 4%;
   background-color: white;
 }
+.navbar {
+position: relative;
+width: 100%
+}
 
 h1 {
-  color: #28b1ab;
+  color: #516c91;
   font-family: "Source Sans Pro", sans-serif;
   padding: 3px;
   margin: 0;
@@ -22,9 +26,9 @@ h1 {
 .logo {
   float: left;  
   /*display: inline-block;*/
-  max-height: 20%;
-  max-width: 20%;
-  padding: 0% 5% 3% 0%;
+  max-height: 5%;
+  max-width: 5%;
+  margin-left: 2%;
 }
 
 .asterisk {
@@ -157,7 +161,7 @@ body.waiting * {
 
 /* When the checkbox is checked, add a blue background */
 .containerLeft input:checked ~ .checkmark {
-  background-color: #28b1ab;
+  background-color: #2764aa;
   border: none;
 }
 
@@ -229,7 +233,7 @@ body.waiting * {
 
 /* When the checkbox is checked, add a blue background */
 .container input:checked ~ .checkmark {
-  background-color: #28b1ab;
+  background-color: #2764aa;
   border: none;
 }
 
@@ -303,7 +307,7 @@ body.waiting * {
 
 /* When the radio button is checked, add a blue background */
 .radioButton input:checked ~ .ticked {
-  background-color: #28b1ab;
+  background-color: #2764aa;
   border: none;
 }
 
@@ -330,7 +334,7 @@ body.waiting * {
 }
 
 input[type="text"]:focus, input[type="email"]:focus, input[type="date"]:focus,  input[type="number"]:focus {
-  box-shadow: 0 0 8px #28b1ab;
+  box-shadow: 0 0 8px #2764aa;
 }
 
 input[type="text"], input[type="email"] , input[type="number"] {
@@ -403,7 +407,7 @@ select:invalid {
 
 select:valid {
   color: black;
-  border: 2px solid #28b1ab;
+  border: 2px solid #2764aa;
   
 }
 input[type="email"]:focus:invalid {
@@ -412,11 +416,11 @@ input[type="email"]:focus:invalid {
 }
 
 input[type="email"]:required:valid, input[type="date"]:required:valid  {
-  border: 2px solid #28b1ab;
+  border: 2px solid #2868b1;
 }
 
 input[type="text"]:required:valid {
-  border: 2px solid #28b1ab;
+  border: 2px solid #2868b1;
 }
 
 input[type="text"]:focus:required:invalid, input[type="number"]:focus:required:invalid {
@@ -426,7 +430,7 @@ input[type="text"]:focus:required:invalid, input[type="number"]:focus:required:i
 
 
 input[type="number"]:required:valid {
-  border: 2px solid #28b1ab;
+  border: 2px solid #2868b1;
 }
 
 
@@ -499,7 +503,7 @@ input[type="number"]:required:valid {
 }
 
 .button:hover {
-  background-color: #28b1ab; 
+  background-color: #2868b1; 
   color: white;
 }
 
